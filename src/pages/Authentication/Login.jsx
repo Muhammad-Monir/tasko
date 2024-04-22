@@ -19,7 +19,7 @@ const Login = () => {
 
   const onSubmit = (userData) => {
     console.log(userData);
-    
+
   };
 
   return (
@@ -30,7 +30,7 @@ const Login = () => {
         </div>
         <div className="h-screen w-[558px] mx-auto flex flex-col justify-center py-[40px]">
           <div className="text-center">
-            <h1 className="text-[40px] font-semibold mb-[4px]">Login</h1>
+            <h1 className="text-[40px] font-semibold mb-[4px]">Login hhh</h1>
             <p className="text-paraColor font-[16px]">
               WelcomeBack,Please Enter your Details to Log In.
             </p>
@@ -54,7 +54,7 @@ const Login = () => {
                   },
                 })}
               />
-              {errors.email && <p>{errors.email.message}</p>}
+              {errors.email && <p className="text-[14px] font-normalnt- text-red-600 mt-[6px]">{errors.email.message}</p>}
             </div>
             <div className="mt-[33px]">
               <label className="block" htmlFor="password">
@@ -94,7 +94,7 @@ const Login = () => {
                   </svg>
                 </div>
               </div>
-              {errors.password && <p>{errors.password.message}</p>}
+              {errors.password && <p className="text-[14px] font-normalnt- text-red-600 mt-[6px]">{errors.password.message}</p>}
             </div>
             <div className="flex justify-between items-center mt-[10px] mb-[50px] form-group">
               <div>
