@@ -28,9 +28,9 @@ const Login = () => {
         <div className="h-screen w-1/2">
           <img className="h-full w-full object-cover" src={LoginImg} alt="" />
         </div>
-        <div className="h-screen w-[558px] mx-auto flex flex-col justify-center py-[40px]">
+        <div className="h-screen w-[558px] max-h-[911px] overflow-auto mx-auto flex flex-col justify-center py-[40px]">
           <div className="text-center">
-            <h1 className="text-[40px] font-semibold mb-[4px]">Login hhh</h1>
+            <h1 className="text-[40px] font-semibold mb-[4px]">Login</h1>
             <p className="text-paraColor font-[16px]">
               WelcomeBack,Please Enter your Details to Log In.
             </p>

@@ -1,72 +1,150 @@
-.auth-input{
-    padding: 11px 20px;
-    width: 100%;
-    background-color: #fff;
-    border:1px solid #e1e1e1;
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 500;
+.auth-input {
+  padding: 11px 20px;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #e1e1e1;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
 }
-.auth-input::placeholder{
-    color: #667085;
+.auth-input::placeholder {
+  color: #667085;
 }
-.auth-input:focus{
-    outline: none;
+.auth-input:focus {
+  outline: none;
 }
-.auth--form label{
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: #1f1f1f;
+.auth--form label {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1f1f1f;
 }
 
-  
-  .form-group input {
-    padding: 0;
-    height: initial;
-    width: initial;
-    margin-bottom: 0;
-    display: none;
-    cursor: pointer;
-  }
-  
-  .form-group label {
-    position: relative;
-    cursor: pointer;
-    color: #667085;
-    padding-left: 8px;
-  }
-  
-  .form-group label:before {
-    content:'';
-    -webkit-appearance: none;
-    background-color: transparent;
-    border: 2px solid #E1E1E1;
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-    padding: 10px;
-    display: inline-block;
-    position: relative;
-    vertical-align: middle;
-    cursor: pointer;
-    margin-right: 5px;
-    border-radius: 6px;
-    left: -8px;
-  }
-  .form-group input:checked + label:before{
-    background-color: #60E5AE;
-  }
-  
-  .form-group input:checked + label:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 3px;
-    left: 9px;
-    width: 6px;
-    height: 14px;
-    border: solid #000;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-  }
+.form-group input {
+  padding: 0;
+  height: initial;
+  width: initial;
+  margin-bottom: 0;
+  display: none;
+  cursor: pointer;
+}
+
+.form-group label {
+  position: relative;
+  cursor: pointer;
+  color: #667085;
+  padding-left: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.form-group label:before {
+  content: "";
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 2px solid #e1e1e1;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  padding: 10px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 5px;
+  border-radius: 6px;
+  left: -8px;
+}
+.form-group input:checked + label:before {
+  background-color: #60e5ae;
+}
+
+.form-group input:checked + label:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 9px;
+  width: 6px;
+  height: 14px;
+  border: solid #000;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.menu--wrap li a {
+  display: flex;
+  align-items: center;
+  color: white;
+  gap: 10px;
+  transition: all 0.3s ease-in-out;
+}
+.menu--wrap li a:hover {
+  color: #60e5ae;
+}
+.menu--wrap li a svg path {
+  transition: all 0.3s ease-in-out;
+}
+.menu--wrap li a:hover svg path {
+  stroke: #60e5ae;
+}
+.menu--wrap li.spin a:hover svg path {
+  fill: #60e5ae;
+}
+.menu--wrap li a.linkActive {
+  color: #60e5ae;
+}
+.menu--wrap li a.linkActive svg path {
+  stroke: #60e5ae;
+}
+.menu--wrap li.spin a.linkActive svg path {
+  fill: #60e5ae;
+}
+/* profile--dropdown  */
+.profile--dropdown {
+  box-shadow: 25px 23px 68px 0px rgba(10, 48, 61, 0.06);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+.profile--dropdown.show {
+  top: 60px;
+  opacity: 1;
+  visibility: visible;
+}
+.profile--dropdown li a,
+.profile--dropdown li .logout {
+  display: flex;
+  align-items: center;
+  padding: 8px 14px;
+  gap: 8px;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  transition: all 0.3s ease-in-out;
+}
+.profile--dropdown li a:hover {
+  background-color: rgb(96 229 174 / 40%);
+}
+.profile--dropdown li .logout {
+  color: #ff4c24;
+}
+
+/* main--content--wrapper  */
+.main--content--wrapper,
+.main--content--wrapperV2 {
+  height: calc(100vh - 280px);
+  border-radius: 15px;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.12),
+    0px 23px 44px 0px rgba(176, 183, 195, 0.14);
+  background-color: #fff;
+  padding: 27px;
+}
+.reset--icon {
+  background: linear-gradient(102deg, #05e389 3.72%, #009a62 80.82%);
+}
+.main--content--wrapperV2{
+  height: calc(100vh - 150px);
+}
