@@ -5,12 +5,11 @@ import TalentedBadge from "../../assets/images/talented-badge.svg";
 import UserImage from "../../assets/images/user.png";
 import { useEffect, useState } from "react";
 
-
 const Navbar = () => {
   const [isDropdownActive, setIsDropdownActive] = useState(false);
   let userName = "ThomasM.";
 
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     document.addEventListener("click", (event) => {
@@ -327,12 +326,18 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-       {pathname === '/' ? (
-         <div className="pt-[42px]">
-         <p className="text-[24px] font-semibold text-primaryColor mb-[4px]">Hi Thomas</p>
-         <h1 className="text-[40px] font-semibold text-white">Welcome to Dashboard</h1>
-       </div>
-       ) : ''}
+        {pathname === "/" ? (
+          <div className="pt-[42px]">
+            <p className="text-[24px] font-semibold text-primaryColor mb-[4px]">
+              Hi Thomas
+            </p>
+            <h1 className="text-[40px] font-semibold text-white">
+              Welcome to Dashboard
+            </h1>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </header>
   );
