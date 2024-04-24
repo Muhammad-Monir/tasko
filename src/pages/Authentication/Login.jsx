@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import LoginImg from "../../assets/images/login.png";
 import AuthButton from "./components/AuthButton";
-import "./style.css";
+import "./auth.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
