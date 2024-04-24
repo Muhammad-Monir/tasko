@@ -201,7 +201,7 @@ function TaskList() {
   ];
 
   return (
-    <div className="overflow-y-scroll max-h-[55vh] mt-14 ">
+    <div className="overflow-y-scroll max-h-[55vh] mt-14 pr-2 ">
       {/* list wrapper */}
       <div className="grid grid-cols-3 gap-6 ">
         {taskList.map((singleTask, index) => (
