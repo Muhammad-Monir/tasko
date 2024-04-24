@@ -19,7 +19,6 @@ const Login = () => {
 
   const onSubmit = (userData) => {
     console.log(userData);
-
   };
 
   return (
@@ -36,7 +35,11 @@ const Login = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="auth--form" noValidate>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="auth--form"
+            noValidate
+          >
             <div className="mt-[33px]">
               <label className="block" htmlFor="email">
                 Email Address
@@ -54,7 +57,11 @@ const Login = () => {
                   },
                 })}
               />
-              {errors.email && <p className="text-[14px] font-normalnt- text-red-600 mt-[6px]">{errors.email.message}</p>}
+              {errors.email && (
+                <p className="text-[14px] font-normalnt- text-red-600 mt-[6px]">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
             <div className="mt-[33px]">
               <label className="block" htmlFor="password">
@@ -69,7 +76,8 @@ const Login = () => {
                   {...register("password", {
                     pattern: {
                       value: /^(?=.*\d)(?=.*[A-Z])(?=.*\W).{4,}$/,
-                      message: "Password must be at least 4 characters and contain at least one digit, one uppercase letter, and one special character.",
+                      message:
+                        "Password must be at least 4 characters and contain at least one digit, one uppercase letter, and one special character.",
                     },
                     required: "Password is required.",
                   })}
@@ -94,7 +102,11 @@ const Login = () => {
                   </svg>
                 </div>
               </div>
-              {errors.password && <p className="text-[14px] font-normalnt- text-red-600 mt-[6px]">{errors.password.message}</p>}
+              {errors.password && (
+                <p className="text-[14px] font-normalnt- text-red-600 mt-[6px]">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
             <div className="flex justify-between items-center mt-[10px] mb-[50px] form-group">
               <div>
