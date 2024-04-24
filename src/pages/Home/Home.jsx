@@ -18,6 +18,10 @@ const Home = () => {
           <CommonButton icon={AddSvg} text="Add New Task" />
         </div>
       </div>
+
+      {/* tasks  */}
+
+      <TaskList />
     </section>
   );
 };
