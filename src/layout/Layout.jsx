@@ -9,8 +9,10 @@ const Layout = () => {
       <Navbar></Navbar>
       {/* main area */}
       <main>       
-        <div className="main--content--wrapper w-[1320px] mx-auto -mt-[60px]  overflow-auto bg-white">
-          <Outlet></Outlet>
+        <div className="main--content--upper w-[1320px] mx-auto -mt-[60px] overflow-hidden rounded-[24px]">
+          <div className="main--content--wrapper overflow-auto bg-white">
+            <Outlet></Outlet>
+          </div>
         </div>
       </main>
     </div>
