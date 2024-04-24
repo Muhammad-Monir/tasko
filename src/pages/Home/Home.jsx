@@ -1,7 +1,7 @@
 import { useState } from "react";
-import CategorySelect from "../../assets/components/Select/CategorySelect";
-import StatusSelect from "../../assets/components/Select/StatusSelect";
-import CommonButton from "../../assets/components/Select/CommonButton";
+import CategorySelect from "../../components/Select/CategorySelect";
+import StatusSelect from "../../components/Select/StatusSelect";
+import CommonButton from "../../components/CommonButton/CommonButton";
 import AddSvg from "../../assets/images/addicon.svg"
 
 const Home = () => {
