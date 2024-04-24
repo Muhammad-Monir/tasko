@@ -1,7 +1,11 @@
-import React from 'react'
 
-export default function Task() {
+
+const Task = () => {
   return (
-    <div>Task</div>
+    <div>
+        Single task
+    </div>
   )
 }
+
+export default Task
