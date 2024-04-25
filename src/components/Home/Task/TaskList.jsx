@@ -3,6 +3,7 @@ import useAxiosCustom from "../../../hooks/useAxiosCustom";
 import Task from "./Task";
 import { useQuery } from "@tanstack/react-query";
 import NoTask from "./NoTask";
+import Loader from "../../Loader/Loader";
 
 function TaskList() {
   const [taskList, setTaskList] = useState([]);
@@ -25,10 +26,10 @@ function TaskList() {
     staleTime: 0,
   });
 
-  return ( 
+  return (
     <div>
       {isLoading ? (
-        <p>Data is loading</p>
+        <Loader />
       ) : (
         <div>
           {taskList?.length > 0 ? (
@@ -46,5 +47,5 @@ function TaskList() {
     </div>
   );
 }
-      
+
 export default TaskList;
