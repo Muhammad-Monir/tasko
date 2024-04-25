@@ -201,5 +201,5 @@ body {
 }
 
 .tasklist--wrapper{
-  max-height: calc(100vh - 424px);
+  height: calc(100vh - 424px);
 }
