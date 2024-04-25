@@ -15,10 +15,11 @@ export default function CategorySelect() {
     const [isShow, setIsShow] = useState(false);
     const triggerRef = useRef(null);
 
-    const handleSelect = (data) => {
-      setSelectedStatus(data);
-      setIsShow(false);
-    }
+  const handleSelect = (data) => {
+    setSelectedStatus(data);
+    setIsShow(false);
+  };
+
 
     useEffect(() => {
       document.addEventListener("click", (event) => {
@@ -32,7 +33,7 @@ export default function CategorySelect() {
 
   return (
     <div className="relative cursor-pointer">
-      <div ref={triggerRef} className={`select--toggler flex w-[305px] items-center justify-between py-[12px] px-[16px] border-[1px] border-[#e1e1e1] rounded-[8px] text-paraLight font-medium`} onClick={() => setIsShow(!isShow)}>
+      <div ref={triggerRef} className={`flex w-[305px] items-center justify-between py-[12px] px-[16px] border-[1px] border-[#e1e1e1] rounded-[8px] text-paraLight font-medium`} onClick={() => setIsShow(!isShow)}>
         {selectedStatus === ""
           ? "Select Task Category"
           : selectedStatus.title}
@@ -49,10 +50,14 @@ export default function CategorySelect() {
           />
         </svg>
       </div>
-      <ul className={`select--dropdown absolute ${isShow ? 'show' : ''} top-[56px] right-0 w-[220px] h-[260px] overflow-auto bg-white py-[6px] px-[14px] shadow-[25px_23px_68px_0px_rgba(10,48,61,0.06)] rounded-[8px]`}>
+      <ul
+        className={`select--dropdown absolute ${
+          isShow ? "show" : ""
+        } top-[56px] right-0 w-[220px] h-[260px] overflow-auto bg-white py-[6px] px-[14px] shadow-[25px_23px_68px_0px_rgba(10,48,61,0.06)] rounded-[8px]`}
+      >
         {categoryData.map((data) => (
           <li
-          key={data.id}
+            key={data.id}
             className="form-group option"
             onClick={() => handleSelect(data)}
           >
