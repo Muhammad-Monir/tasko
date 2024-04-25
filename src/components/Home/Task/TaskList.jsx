@@ -2,6 +2,7 @@ import { useState } from "react";
 import useAxiosCustom from "../../../hooks/useAxiosCustom";
 import Task from "./Task";
 import { useQuery } from "@tanstack/react-query";
+import NoTask from "./NoTask";
 
 function TaskList() {
   const [taskList, setTaskList] = useState([]);
@@ -22,16 +23,20 @@ function TaskList() {
   });
 
   return (
-    <div className="tasklist--wrapper overflow-y-scroll max-h-[55vh] mt-14 pr-2 pb-4 ">
+    <div>
+      {isLoading && <p>data is loading</p>}
       {/* list wrapper */}
-      <div className="grid grid-cols-3 gap-6 ">
-        {isLoading && <p>data is loading</p>}
 
-        {data &&
-          taskList.map((singleTask, index) => (
-            <Task key={index} taskInfo={singleTask}></Task>
-          ))}
-      </div>
+      {data &&
+        (taskList.length ? (
+          <div className="grid grid-cols-3 gap-6 ">
+            {taskList.map((singleTask, index) => (
+              <Task key={index} taskInfo={singleTask}></Task>
+            ))}
+          </div>
+        ) : (
+          <NoTask></NoTask>
+        ))}
     </div>
   );
 }

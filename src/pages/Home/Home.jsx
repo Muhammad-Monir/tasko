@@ -1,4 +1,3 @@
-
 import CategorySelect from "../../components/Select/CategorySelect";
 import StatusSelect from "../../components/Select/StatusSelect";
 import CommonButton from "../../components/CommonButton/CommonButton";
@@ -20,10 +19,11 @@ const Home = () => {
       </div>
 
       {/* tasks  */}
-
-      <TaskList />
+      <div className="tasklist--wrapper overflow-y-auto max-h-[55vh] mt-14 pr-2 pb-4 ">
+        <TaskList />
+      </div>
     </section>
   );
 };
 
-export default Home; 
+export default Home;
