@@ -5,15 +5,12 @@ import SectionHeading from "../../components/SectionHeading/SectionHeading";
 import CommonButton from "../../components/CommonButton/CommonButton";
 import taskIcon from "../../assets/images/task-icon.svg";
 import StatusSelect from "../../components/Select/StatusSelect";
-import { Triangle } from "react-loader-spinner";
 import Loader from "../../components/Loader/Loader";
 
 const SingleTask = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const axiosCustom = useAxiosCustom();
-  const loading = true;
-
   // using query
   const { data: taskInfo, isLoading } = useQuery({
     queryKey: ["taskList"],
