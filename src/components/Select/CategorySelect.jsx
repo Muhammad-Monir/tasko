@@ -1,30 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CategorySelect() {
-    const categoryDatas = [
-        { id: "arts", title: "Arts and Craft" },
-        { id: "nature", title: "Nature" },
-        { id: "family", title: "Family" },
-        { id: "sport", title: "Sport" },
-        { id: "friends", title: "Friends" },
-        { id: "meditation", title: "Meditation" },
-        ];
-    
-    const [categoryData, setCategoryData] = useState(categoryDatas);
-    const [selectedStatus, setSelectedStatus] = useState('');
-    const [isShow, setIsShow] = useState(false);
+  const categoryDatas = [
+    { id: "arts", title: "Arts and Craft" },
+    { id: "nature", title: "Nature" },
+    { id: "family", title: "Family" },
+    { id: "sport", title: "Sport" },
+    { id: "friends", title: "Friends" },
+    { id: "meditation", title: "Meditation" },
+  ];
 
-    const handleSelect = (data) => {
-      setSelectedStatus(data);
-      setIsShow(false);
-    }
+  const [categoryData, setCategoryData] = useState(categoryDatas);
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [isShow, setIsShow] = useState(false);
+
+  const handleSelect = (data) => {
+    setSelectedStatus(data);
+    setIsShow(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", (event) => {
+      let trigger = document.querySelector(".select--toggler");
+      let dropdown = document.querySelector(".select--dropdown");
+
+      if (!trigger.contains(event.target) && !dropdown.contains(event.target)) {
+        setIsShow(false);
+      }
+    });
+  }, []);
 
   return (
     <div className="relative cursor-pointer">
-      <div className={`flex w-[305px] items-center justify-between py-[12px] px-[16px] border-[1px] border-[#e1e1e1] rounded-[8px] text-paraLight font-medium`} onClick={() => setIsShow(!isShow)}>
-        {selectedStatus === ""
-          ? "Select Task Category"
-          : selectedStatus.title}
+      <div
+        className={`flex w-[305px] items-center justify-between py-[12px] px-[16px] border-[1px] border-[#e1e1e1] rounded-[8px] text-paraLight font-medium`}
+        onClick={() => setIsShow(!isShow)}
+      >
+        {selectedStatus === "" ? "Select Task Category" : selectedStatus.title}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
@@ -38,10 +50,14 @@ export default function CategorySelect() {
           />
         </svg>
       </div>
-      <ul className={`select--dropdown absolute ${isShow ? 'show' : ''} top-[56px] right-0 w-[220px] h-[260px] overflow-auto bg-white py-[6px] px-[14px] shadow-[25px_23px_68px_0px_rgba(10,48,61,0.06)] rounded-[8px]`}>
+      <ul
+        className={`select--dropdown absolute ${
+          isShow ? "show" : ""
+        } top-[56px] right-0 w-[220px] h-[260px] overflow-auto bg-white py-[6px] px-[14px] shadow-[25px_23px_68px_0px_rgba(10,48,61,0.06)] rounded-[8px]`}
+      >
         {categoryData.map((data) => (
           <li
-          key={data.id}
+            key={data.id}
             className="form-group option"
             onClick={() => handleSelect(data)}
           >
