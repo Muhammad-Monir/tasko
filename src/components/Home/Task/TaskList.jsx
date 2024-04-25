@@ -10,8 +10,9 @@ function TaskList() {
   const axiosCustom = useAxiosCustom();
 
   // using query
-  const { data, isLoading } = useQuery({
+  const { isLoading } = useQuery({
     queryKey: ["taskList"],
+
     queryFn: async () => {
       const res = await axiosCustom.get("/all-tasks");
 
@@ -20,23 +21,28 @@ function TaskList() {
 
       return res.data;
     },
+    cacheTime: 1000 * 60 * 60,
+    staleTime: 0,
   });
 
   return (
     <div>
-      {isLoading && <p>data is loading</p>}
-      {/* list wrapper */}
-
-      {data &&
-        (taskList.length ? (
-          <div className="grid grid-cols-3 gap-6 ">
-            {taskList.map((singleTask, index) => (
-              <Task key={index} taskInfo={singleTask}></Task>
-            ))}
-          </div>
-        ) : (
-          <NoTask></NoTask>
-        ))}
+      {isLoading ? (
+        <p>Data is loading</p>
+      ) : (
+        <div>
+          {taskList?.length > 0 ? (
+            // Use cached data if available
+            <div className="grid grid-cols-3 gap-6">
+              {taskList.map((singleTask, index) => (
+                <Task taskInfo={singleTask} key={index} />
+              ))}
+            </div>
+          ) : (
+            <NoTask /> // Show "No Task" if data is truly empty
+          )}
+        </div>
+      )}
     </div>
   );
 }
