@@ -7,9 +7,21 @@ import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [isDropdownActive, setIsDropdownActive] = useState(false);
+  const [shortNav, setShortNav] = useState("");
+  const [tallNav, setTallNav] = useState("");
   let userName = "ThomasM.";
 
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname === "/") {
+      setShortNav(false);
+      setTallNav(true);
+    } else {
+      setShortNav(true);
+      setTallNav(false);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     document.addEventListener("click", (event) => {
@@ -32,7 +44,9 @@ const Navbar = () => {
       style={{
         backgroundImage: `url(${HeaderBg})`,
       }}
-      className="h-[306px] pt-[26px] pb-[30px] bg-cover bg-no-repeat"
+      className={`${shortNav ? "h-[175px]" : ""} ${
+        tallNav ? "h-[306px]" : ""
+      } pt-[26px] pb-[30px] bg-cover bg-no-repeat`}
     >
       <div className="container">
         <div className="flex items-center justify-between">
@@ -120,7 +134,7 @@ const Navbar = () => {
               </li>
               <li>
                 <NavLink
-                  to={"/demo"}
+                  to={"/collaborative-task"}
                   className={({ isActive }) => (isActive ? "linkActive" : "")}
                 >
                   <svg

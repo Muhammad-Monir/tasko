@@ -13,7 +13,9 @@ const Home = () => {
         <div className="flex items-start gap-[16px]">
           <CategorySelect />
           <StatusSelect />
-          <CommonButton icon={AddSvg} text="Add New Task" />
+          <div className="w-[231px]">
+              <CommonButton icon={AddSvg} text="Add New Task" />
+          </div>
         </div>
       </div>
 
