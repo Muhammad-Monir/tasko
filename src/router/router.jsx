@@ -6,6 +6,7 @@ import SignUp from "../pages/Authentication/SignUp";
 import ResetPass from "../pages/Authentication/ResetPass";
 import Error from "../pages/Error/Error";
 import SingleTask from "../pages/SingleTask/SingleTask";
+import CollaborativeTask from "../pages/CollaborativeTask/CollaborativeTask";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/task/:id",
         element: <SingleTask />,
+      },
+      {
+        path: "/collaborative-task",
+        element: <CollaborativeTask />,
       },
     ],
     errorElement: <Error />,

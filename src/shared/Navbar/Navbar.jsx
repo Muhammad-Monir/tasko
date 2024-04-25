@@ -120,7 +120,7 @@ const Navbar = () => {
               </li>
               <li>
                 <NavLink
-                  to={"/demo"}
+                  to={"/collaborative-task"}
                   className={({ isActive }) => (isActive ? "linkActive" : "")}
                 >
                   <svg
