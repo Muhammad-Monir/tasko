@@ -1,42 +1,42 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function CategorySelect() {
-  const categoryDatas = [
-    { id: "arts", title: "Arts and Craft" },
-    { id: "nature", title: "Nature" },
-    { id: "family", title: "Family" },
-    { id: "sport", title: "Sport" },
-    { id: "friends", title: "Friends" },
-    { id: "meditation", title: "Meditation" },
-  ];
-
-  const [categoryData, setCategoryData] = useState(categoryDatas);
-  const [selectedStatus, setSelectedStatus] = useState("");
-  const [isShow, setIsShow] = useState(false);
+    const categoryDatas = [
+        { id: "arts", title: "Arts and Craft" },
+        { id: "nature", title: "Nature" },
+        { id: "family", title: "Family" },
+        { id: "sport", title: "Sport" },
+        { id: "friends", title: "Friends" },
+        { id: "meditation", title: "Meditation" },
+        ];
+    
+    const [categoryData, setCategoryData] = useState(categoryDatas);
+    const [selectedStatus, setSelectedStatus] = useState('');
+    const [isShow, setIsShow] = useState(false);
+    const triggerRef = useRef(null);
 
   const handleSelect = (data) => {
     setSelectedStatus(data);
     setIsShow(false);
   };
 
-  useEffect(() => {
-    document.addEventListener("click", (event) => {
-      let trigger = document.querySelector(".select--toggler");
-      let dropdown = document.querySelector(".select--dropdown");
 
-      if (!trigger.contains(event.target) && !dropdown.contains(event.target)) {
-        setIsShow(false);
-      }
-    });
-  }, []);
+    useEffect(() => {
+      document.addEventListener("click", (event) => {
+        let trigger = triggerRef.current;
+        let dropdown = document.querySelector(".select--dropdown");
+        if (!trigger.contains(event.target) && !dropdown.contains(event.target)) {
+          setIsShow(false);
+        }
+      });
+    }, []);
 
   return (
     <div className="relative cursor-pointer">
-      <div
-        className={`flex w-[305px] items-center justify-between py-[12px] px-[16px] border-[1px] border-[#e1e1e1] rounded-[8px] text-paraLight font-medium`}
-        onClick={() => setIsShow(!isShow)}
-      >
-        {selectedStatus === "" ? "Select Task Category" : selectedStatus.title}
+      <div ref={triggerRef} className={`flex w-[305px] items-center justify-between py-[12px] px-[16px] border-[1px] border-[#e1e1e1] rounded-[8px] text-paraLight font-medium`} onClick={() => setIsShow(!isShow)}>
+        {selectedStatus === ""
+          ? "Select Task Category"
+          : selectedStatus.title}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"

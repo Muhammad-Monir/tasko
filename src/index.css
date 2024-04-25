@@ -199,3 +199,7 @@ body {
   opacity: 1;
   visibility: visible;
 }
+
+.tasklist--wrapper{
+  max-height: calc(100vh - 424px);
+}
