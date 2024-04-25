@@ -5,6 +5,7 @@ import Login from "../pages/Authentication/Login";
 import SignUp from "../pages/Authentication/SignUp";
 import ResetPass from "../pages/Authentication/ResetPass";
 import Error from "../pages/Error/Error";
+import SingleTask from "../pages/SingleTask/SingleTask";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/task/:id",
+        element: <SingleTask />,
       },
     ],
     errorElement: <Error />,
