@@ -23,8 +23,13 @@ export default function StatusSelect() {
     document.addEventListener("click", (event) => {
       let trigger = triggerRef.current;
       let dropdown = document.querySelector(".select--dropdown");
-      if (!trigger.contains(event.target) && !dropdown.contains(event.target)) {
-        setIsShow(false);
+      if (trigger && dropdown) {
+        if (
+          !trigger.contains(event.target) &&
+          !dropdown.contains(event.target)
+        ) {
+          setIsShow(false);
+        }
       }
     });
   }, []);

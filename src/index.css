@@ -157,7 +157,7 @@ body {
 }
 .main--content--wrapper,
 .main--content--wrapperV2 {
-  height: calc(100vh - 280px);
+  /* height: calc(100vh - 280px); */
   border-radius: 15px;
   background-color: #fff;
   padding: 27px;
