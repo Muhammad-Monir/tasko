@@ -25,7 +25,7 @@ function TaskList() {
     staleTime: 0,
   });
 
-  return (
+  return ( 
     <div>
       {isLoading ? (
         <p>Data is loading</p>
@@ -46,5 +46,5 @@ function TaskList() {
     </div>
   );
 }
-
+      
 export default TaskList;
