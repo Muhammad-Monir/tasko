@@ -22,7 +22,7 @@ function TaskList() {
     },
   });
 
-  return (
+  return ( 
     <div>
       {isLoading && <p>data is loading</p>}
       {/* list wrapper */}
@@ -40,5 +40,5 @@ function TaskList() {
     </div>
   );
 }
-
+      
 export default TaskList;
