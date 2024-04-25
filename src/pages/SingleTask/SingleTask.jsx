@@ -4,11 +4,15 @@ import useAxiosCustom from "../../hooks/useAxiosCustom";
 import SectionHeading from "../../components/SectionHeading/SectionHeading";
 import CommonButton from "../../components/CommonButton/CommonButton";
 import taskIcon from "../../assets/images/task-icon.svg";
+import StatusSelect from "../../components/Select/StatusSelect";
+import { Triangle } from "react-loader-spinner";
+import Loader from "../../components/Loader/Loader";
 
 const SingleTask = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const axiosCustom = useAxiosCustom();
+  const loading = true;
 
   // using query
   const { data: taskInfo, isLoading } = useQuery({
@@ -46,9 +50,9 @@ const SingleTask = () => {
   return (
     <div className="h-full">
       {isLoading ? (
-        <p>Data is loading</p>
+        <Loader />
       ) : (
-        taskInfo && (
+        taskInfo.id && (
           // Task Wrapper
           <div className="flex flex-col h-full">
             {/* top part */}
@@ -67,7 +71,7 @@ const SingleTask = () => {
                   {" "}
                   {taskInfo?.point} Points{" "}
                 </p>
-                <div className="w-fit" onClick={() => navigate(-1)}>
+                <div className="w-[145px]" onClick={() => navigate(-1)}>
                   <CommonButton text={"Back"}></CommonButton>
                 </div>
               </div>
@@ -240,15 +244,26 @@ const SingleTask = () => {
             <div className="flex items-center justify-between">
               {/* status change area */}
               <div>
-                <p className="text-base text-headingColor font-semibold leading-5">
+                <p className="text-base text-headingColor font-semibold leading-5 pb-2">
                   Change Status
                 </p>
+                <StatusSelect></StatusSelect>
               </div>
 
               {/* button area */}
               <div className="flex items-center gap-5">
-                <CommonButton text={"Delete Task"}></CommonButton>
-                <CommonButton text={"Submit"}></CommonButton>
+                {/* delete task */}
+                <div className="w-[270px]">
+                  <CommonButton
+                    text={"Delete Task"}
+                    bGcolor="rgba(255, 76, 36, 0.15)"
+                    color="#FF4C24"
+                  ></CommonButton>
+                </div>
+                {/* submit task */}
+                <div className="w-[270px]">
+                  <CommonButton text={"Submit"}></CommonButton>
+                </div>
               </div>
             </div>
           </div>

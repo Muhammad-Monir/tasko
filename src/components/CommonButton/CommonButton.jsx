@@ -19,4 +19,6 @@ export default function CommonButton({ icon, text, bGcolor="#60E5AE", color="#1F
 CommonButton.propTypes = {
   icon: PropTypes.string,
   text: PropTypes.string,
+  bGcolor:PropTypes.string,
+  color:PropTypes.string
 };
