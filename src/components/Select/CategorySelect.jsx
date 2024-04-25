@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function CategorySelect() {
     const categoryDatas = [
@@ -13,15 +13,26 @@ export default function CategorySelect() {
     const [categoryData, setCategoryData] = useState(categoryDatas);
     const [selectedStatus, setSelectedStatus] = useState('');
     const [isShow, setIsShow] = useState(false);
+    const triggerRef = useRef(null);
 
     const handleSelect = (data) => {
       setSelectedStatus(data);
       setIsShow(false);
     }
 
+    useEffect(() => {
+      document.addEventListener("click", (event) => {
+        let trigger = triggerRef.current;
+        let dropdown = document.querySelector(".select--dropdown");
+        if (!trigger.contains(event.target) && !dropdown.contains(event.target)) {
+          setIsShow(false);
+        }
+      });
+    }, []);
+
   return (
     <div className="relative cursor-pointer">
-      <div className={`flex w-[305px] items-center justify-between py-[12px] px-[16px] border-[1px] border-[#e1e1e1] rounded-[8px] text-paraLight font-medium`} onClick={() => setIsShow(!isShow)}>
+      <div ref={triggerRef} className={`select--toggler flex w-[305px] items-center justify-between py-[12px] px-[16px] border-[1px] border-[#e1e1e1] rounded-[8px] text-paraLight font-medium`} onClick={() => setIsShow(!isShow)}>
         {selectedStatus === ""
           ? "Select Task Category"
           : selectedStatus.title}
