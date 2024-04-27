@@ -12,6 +12,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -23,10 +24,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/collaborative-task",
-        element: <CollaborativeTask />,
+        element: <CollaborativeTask></CollaborativeTask>,
       },
     ],
-    errorElement: <Error />,
   },
   {
     path: "/login",
