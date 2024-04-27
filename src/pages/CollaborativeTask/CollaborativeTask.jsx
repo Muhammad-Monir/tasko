@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import SectionHeading from "../../components/SectionHeading/SectionHeading";
 import CommonButton from "../../components/CommonButton/CommonButton";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import AddFriendIcon from "../../assets/images/user-cirlce-add.svg";
+import useAxiosCustom from "../../hooks/useAxiosCustom";
+import { useQuery } from "@tanstack/react-query";
+import Task from "../../components/Home/Task/Task";
+import Loader from "../../components/Loader/Loader";
+import BackButton from "../../components/BackButton.jsx/BackButton";
 
 export default function CollaborativeTask() {
   const navigate = useNavigate();
@@ -48,15 +54,30 @@ export default function CollaborativeTask() {
   ];
 
   const [collaboratives, setCollaboratives] = useState(Collaboratives);
-  const [selectedItems, setSelectedItems] =  useState(false);
+  const [selectedFriend, setSelectedFriend] = useState(null);
+  const [collaborativeTasks, setCollaborativeTasks] = useState([]);
 
-  const handleItemSelect = (itemId) => {
-    collaboratives.map((collaborative) => {
-        if(collaborative.id === itemId){
-            setSelectedItems(true)
-        }
-    })
-  }
+  const axiosCustom = useAxiosCustom();
+
+  const { isLoading, isFetching } = useQuery({
+    queryKey: ["taskList"],
+
+    queryFn: async () => {
+      const res = await axiosCustom.get("/all-tasks");
+
+      // saving the data in the state
+      setCollaborativeTasks(res.data);
+      return res.data;
+    },
+  });
+
+  const handleFriendClick = (friendId) => {
+    setSelectedFriend(friendId);
+  };
+
+  const handleFriendDelete = (id) => {
+    setCollaboratives(collaboratives.filter((friend) => friend.id !== id));
+  };
 
   return (
     <section>
@@ -71,21 +92,27 @@ export default function CollaborativeTask() {
               color="#C716F3"
             />
           </div>
-          <div className="w-[146px]" onClick={() => navigate(-1)}>
-            <CommonButton text="Back" />
-          </div>
+          <BackButton />
         </div>
       </div>
       {/* collaborative friends */}
-      <div className="mt-[37px]">
+      <div className="mt-[37px] flex items-start gap-[30px]">
         {/* friend list  */}
-        <div className="w-[390px] py-[22px] rounded-[5px] border-[1px] border-[#e1e1e1] box-shadow-[0px_1px_3px_0px_rgba(0,0,0,0.12)]">
+        <div className="min-w-[390px] py-[22px] rounded-[5px] border-[1px] border-[#e1e1e1] box-shadow-[0px_1px_3px_0px_rgba(0,0,0,0.12)]">
           <p className="text-base font-semibold text-headingColor px-[24px] mb-[8px]">
-            Friends list 
+            Friends list
           </p>
-          <ul className="h-[320px] overflow-auto">
+          <ul className="h-[445px] overflow-auto">
             {collaboratives.map((collaborative) => (
-              <li className={`relative flex items-center ${selectedItems ? 'bg-red' : ''} gap-[14px] py-[9px] px-[24px] mt-[8px] first:mt-0`} onClick={() => handleItemSelect(collaborative.id)}>
+              <li
+                key={collaborative.id}
+                className={`relative flex items-center ${
+                  selectedFriend === collaborative.id
+                    ? "bg-primaryColor/20"
+                    : ""
+                } gap-[14px] py-[9px] px-[24px] mt-[8px] first:mt-0`}
+                onClick={() => handleFriendClick(collaborative.id)}
+              >
                 <div>
                   <img
                     className="w-12 h-12 rounded-full object-cover"
@@ -101,35 +128,57 @@ export default function CollaborativeTask() {
                     {collaborative.taskAmount} Task With You{" "}
                   </p>
                 </div>
-                <div className="absolute top-1/2 right-[24px] -translate-y-[50%] opacity-0 invisible cursor-pointer">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="15"
-                    height="14"
-                    viewBox="0 0 15 14"
-                    fill="none"
-                  >
-                    <path
-                      d="M13.66 12.8301L1 1"
-                      stroke="#36B37E"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M1 12.8301L13.66 1"
-                      stroke="#36B37E"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                <div
+                  className="absolute top-1/2 right-[24px] -translate-y-[50%] cursor-pointer"
+                  onClick={() => handleFriendDelete(collaborative.id)}
+                >
+                  {selectedFriend === collaborative.id ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                    >
+                      <path
+                        d="M13.66 12.8301L1 1"
+                        stroke="#36B37E"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M1 12.8301L13.66 1"
+                        stroke="#36B37E"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </li>
             ))}
           </ul>
+          <div className="px-[24px] mt-12">
+            <Link to={"/add-friends"}>
+              <CommonButton text="Add New Friend" icon={AddFriendIcon} />
+            </Link>
+          </div>
         </div>
-        <div></div>
+        {isLoading || isFetching ? (
+          <div className="h-[calc(100vh-287px)] w-full flex justify-center">
+            <Loader />
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-[30px] h-[calc(100vh-287px)] pr-[10px] overflow-auto">
+            {collaborativeTasks.map((task, index) => (
+              <Task taskInfo={task} key={index} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

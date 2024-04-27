@@ -7,6 +7,8 @@ import ResetPass from "../pages/Authentication/ResetPass";
 import Error from "../pages/Error/Error";
 import SingleTask from "../pages/SingleTask/SingleTask";
 import CollaborativeTask from "../pages/CollaborativeTask/CollaborativeTask";
+import AddFriends from "../pages/AddFriends.jsx/AddFriends";
+import FriendsRequests from "../pages/FriendsRequests/FriendsRequests";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
       {
         path: "/collaborative-task",
         element: <CollaborativeTask></CollaborativeTask>,
+      },
+      {
+        path: "/add-friends",
+        element: <AddFriends />,
+      },
+      {
+        path: "/friends-requests",
+        element: <FriendsRequests />,
       },
     ],
   },
