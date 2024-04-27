@@ -11,7 +11,7 @@ function TaskList() {
   const axiosCustom = useAxiosCustom();
 
   // using query
-  const { isLoading } = useQuery({
+  const { isLoading, isFetching } = useQuery({
     queryKey: ["taskList"],
 
     queryFn: async () => {
@@ -28,7 +28,7 @@ function TaskList() {
 
   return (
     <div>
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <Loader />
       ) : (
         <div>
