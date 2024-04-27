@@ -4,10 +4,16 @@ import AuthButton from "./components/AuthButton";
 import "./auth.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useAxiosAuth } from "../../hooks/useAxiosAuth";
 
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
+
+  const axiosAuth = useAxiosAuth();
+
   const [isNotMatch, setIsNotMatch] = useState(false);
   const {
     register,
@@ -17,15 +23,33 @@ const Login = () => {
 
   const handlePasswordShow = () => {
     setIsPasswordVisible(!isPasswordVisible);
-    
   };
   const onSubmit = (userData) => {
-   if(userData.password !== userData.ConfirmPassword){
-    setIsNotMatch(true);
-    return;
-   }else{
-    setIsNotMatch(false);
-   }
+    if (userData.password !== userData.ConfirmPassword) {
+      setIsNotMatch(true);
+      return;
+    } else {
+      setIsNotMatch(false);
+    }
+
+    //  submitin the user
+
+    const usersInfo = {
+      email: userData.email,
+      password: userData.password,
+      userName: userData.fname,
+    };
+
+    const postUser = async () => {
+      const res = await axiosAuth.post("/users", usersInfo);
+
+      console.log(res);
+
+      return;
+    };
+
+    postUser();
+
     console.log(userData);
   };
 
@@ -184,7 +208,11 @@ const Login = () => {
                   {errors.ConfirmPassword.message}
                 </p>
               )}
-              {isNotMatch && (<p className="text-[14px] font-normal text-red-600 mt-[6px]">Password don't matched</p>)}
+              {isNotMatch && (
+                <p className="text-[14px] font-normal text-red-600 mt-[6px]">
+                  Password don't matched
+                </p>
+              )}
             </div>
 
             <AuthButton>Sign Up</AuthButton>
@@ -194,9 +222,9 @@ const Login = () => {
               </p>
             </div>
             <p className="text-center mt-[50px] text-paraLight">
-            Already have an account?{" "}
+              Already have an account?{" "}
               <Link to={"/login"} className="font-bold text-headingColor">
-              Log In
+                Log In
               </Link>
             </p>
           </form>

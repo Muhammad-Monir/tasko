@@ -22,8 +22,6 @@ function TaskList() {
 
       return res.data;
     },
-    cacheTime: 1000 * 60 * 60,
-    staleTime: 0,
   });
 
   return (

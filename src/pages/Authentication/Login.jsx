@@ -4,6 +4,8 @@ import AuthButton from "./components/AuthButton";
 import "./auth.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useAxiosAuth } from "../../hooks/useAxiosAuth";
 
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -13,12 +15,29 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  const axiosAuth = useAxiosAuth();
+
   const handlePasswordShow = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
   const onSubmit = (userData) => {
     console.log(userData);
+
+    const userInfo = {
+      email: userData.email,
+      password: userData.password,
+    };
+
+    const getUser = async () => {
+      const res = await axiosAuth.post("users/login", userInfo);
+
+      console.log(res.headers);
+
+      return;
+    };
+
+    getUser();
   };
 
   return (
@@ -74,11 +93,6 @@ const Login = () => {
                   id="password"
                   placeholder="********"
                   {...register("password", {
-                    pattern: {
-                      value: /^(?=.*\d)(?=.*[A-Z])(?=.*\W).{4,}$/,
-                      message:
-                        "Password must be at least 4 characters and contain at least one digit, one uppercase letter, and one special character.",
-                    },
                     required: "Password is required.",
                   })}
                 />
