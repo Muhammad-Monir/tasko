@@ -81,7 +81,7 @@ export default function CollaborativeTask() {
         {/* friend list  */}
         <div className="w-[390px] py-[22px] rounded-[5px] border-[1px] border-[#e1e1e1] box-shadow-[0px_1px_3px_0px_rgba(0,0,0,0.12)]">
           <p className="text-base font-semibold text-headingColor px-[24px] mb-[8px]">
-            Friends list
+            Friends list 
           </p>
           <ul className="h-[320px] overflow-auto">
             {collaboratives.map((collaborative) => (
