@@ -85,12 +85,14 @@ export default function CollaborativeTask() {
         <SectionHeading>Collaborative Task</SectionHeading>
 
         <div className="flex items-center justify-center gap-[20px]">
-          <div className="w-[180px]" onClick={() => navigate("/demo")}>
-            <CommonButton
-              text="Friends  Requests"
-              bGcolor="rgba(199, 22, 243, 0.15)"
-              color="#C716F3"
-            />
+          <div className="w-[180px]">
+            <Link to={"/friends-requests"}>
+              <CommonButton
+                text="Friends  Requests"
+                bGcolor="rgba(199, 22, 243, 0.15)"
+                color="#C716F3"
+              />
+            </Link>
           </div>
           <BackButton />
         </div>
