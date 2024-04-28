@@ -143,7 +143,7 @@ body {
   line-height: 18px;
   transition: all 0.3s ease-in-out;
 }
-.profile--dropdown li a:hover {
+.profile--dropdown li a:hover,.profile--dropdown li a.linkActive {
   background-color: rgb(96 229 174 / 40%);
 }
 .profile--dropdown li .logout {

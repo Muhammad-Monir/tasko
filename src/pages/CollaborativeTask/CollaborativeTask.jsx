@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import SectionHeading from "../../components/SectionHeading/SectionHeading";
 import CommonButton from "../../components/CommonButton/CommonButton";
 import { Link, useNavigate } from "react-router-dom";
@@ -51,10 +51,32 @@ export default function CollaborativeTask() {
       name: "Ben",
       taskAmount: 5,
     },
+    {
+      id: 7,
+      image: "https://i.ibb.co/t8ckFwh/image-114.png",
+      name: "Leo",
+      taskAmount: 10,
+    },
+    {
+      id: 8,
+      image: "https://i.ibb.co/RCgVwkT/mike-von-TPUGb-Qmy-Vw-E-unsplash.png",
+      name: "Jimmy",
+      taskAmount: 12,
+    },
+    {
+      id: 9,
+      image:
+        "https://i.ibb.co/JkXjc5Q/jovem-alegre-bonito-homem-barbudo-com-tatuagens-olhando-para-o-lado-com-um-sorriso-largo-e-sincero-e.png",
+      name: "Manny",
+      taskAmount: 2,
+    },
   ];
 
+  // collaborators freinds list
   const [collaboratives, setCollaboratives] = useState(Collaboratives);
+  // selecting the current friend on click
   const [selectedFriend, setSelectedFriend] = useState(null);
+  // list of collaborating tasks with each of the friends
   const [collaborativeTasks, setCollaborativeTasks] = useState([]);
 
   const axiosCustom = useAxiosCustom();
@@ -108,7 +130,7 @@ export default function CollaborativeTask() {
             {collaboratives.map((collaborative) => (
               <li
                 key={collaborative.id}
-                className={`relative flex items-center ${
+                className={`relative flex items-center cursor-pointer ${
                   selectedFriend === collaborative.id
                     ? "bg-primaryColor/20"
                     : ""
