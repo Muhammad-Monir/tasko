@@ -2,6 +2,7 @@ import { useState } from "react";
 import SectionHeading from "../../components/SectionHeading/SectionHeading";
 import SmallCommonButton from "../../components/CommonButton/SmallCommonButton";
 import BackButton from "../../components/BackButton.jsx/BackButton";
+import RequestCard from "../../components/RequestCard/RequestCard";
 
 export default function FriendsRequests() {
   const friendRequestList = [
@@ -91,9 +92,14 @@ export default function FriendsRequests() {
 
   return (
     <section>
-      <div className="flex items-center justify-between ">
+      <div className="flex items-center justify-between pb-[25px] border-b-[1px] border-[#E1E1E1]">
         <SectionHeading>Friends Requests</SectionHeading>
         <BackButton />
+      </div>
+      <div className="mt-6 max-h-[calc(100vh-285px)] overflow-auto">
+        {allFriendRequest.map((request) => (
+          <RequestCard key={request.id} singleRequest={request} />
+        ))}
       </div>
     </section>
   );
