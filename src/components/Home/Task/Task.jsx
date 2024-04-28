@@ -20,7 +20,7 @@ const Task = ({ taskInfo }) => {
   return (
     <div>
       <Link to={`/task/${taskInfo.id}`}>
-        <div className="rounded-lg bg-[#fff] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.12)] p-5 border-[1px] border-solid border-[#E1E1E1]">
+        <div className="rounded-lg bg-[#fff] h-full shadow-[0px_1px_3px_0px_rgba(0,0,0,0.12)] p-5 border-[1px] border-solid border-[#E1E1E1]">
           {/* top part */}
           <div className="flex items-start gap-3 w-full">
             {/* icon */}

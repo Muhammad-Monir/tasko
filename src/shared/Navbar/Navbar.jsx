@@ -293,7 +293,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to={"/demo"}
+                    to={"/profile"}
                     className={({ isActive }) => (isActive ? "linkActive" : "")}
                   >
                     <svg
