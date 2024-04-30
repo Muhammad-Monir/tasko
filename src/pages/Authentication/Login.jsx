@@ -1,43 +1,72 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginImg from "../../assets/images/login.png";
 import AuthButton from "./components/AuthButton";
 import "./auth.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { useAxiosAuth } from "../../hooks/useAxiosAuth";
+import toast from "react-hot-toast";
+import useAuthContext from "../../hooks/useAuthContext";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const navigate = useNavigate();
+  const axiosAuth = useAxiosAuth();
+  const axiosSecure = useAxiosSecure();
+  const { setUser, setUserLoading } = useAuthContext();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
-
-  const axiosAuth = useAxiosAuth();
 
   const handlePasswordShow = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
   const onSubmit = (userData) => {
-    console.log(userData);
+    setUserLoading(true);
 
     const userInfo = {
       email: userData.email,
       password: userData.password,
     };
 
-    const getUser = async () => {
-      const res = await axiosAuth.post("users/login", userInfo);
+    // loggin in the user
 
-      console.log(res.headers);
+    axiosAuth
+      .post("/users/login", userInfo)
+      .then((res) => {
+        const authorization = res.headers.authorization;
+        const userId = res.headers.userid;
 
-      return;
-    };
+        // setting the tokens on local storage
+        localStorage.setItem("authToken", authorization);
+        localStorage.setItem("userId", userId);
 
-    getUser();
+        // making another request to get the user
+        axiosSecure
+          .get(`/users?id=${userId}`)
+          .then((res) => {
+            toast.success("Logged in Successfully");
+            setUser(res.data);
+
+            reset();
+            navigate("/");
+            setUserLoading(false);
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => {
+        if (err.response.status === 403) {
+          toast.error("Invalid Credentials");
+        } else {
+          toast.error("An error occured , Please Try again");
+          reset();
+        }
+      });
   };
 
   return (

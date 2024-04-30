@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import signUpImg from "../../assets/images/signup.png";
 import AuthButton from "./components/AuthButton";
 import "./auth.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { useAxiosAuth } from "../../hooks/useAxiosAuth";
+import toast from "react-hot-toast";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -21,6 +22,9 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  const { setUser } = useAuthContext();
+  const naviagte = useNavigate();
+
   const handlePasswordShow = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
@@ -32,7 +36,7 @@ const Login = () => {
       setIsNotMatch(false);
     }
 
-    //  submitin the user
+    //  creating  the user
 
     const usersInfo = {
       email: userData.email,
@@ -40,17 +44,26 @@ const Login = () => {
       userName: userData.fname,
     };
 
-    const postUser = async () => {
-      const res = await axiosAuth.post("/users", usersInfo);
+    // submiting the user
+    axiosAuth
+      .post("/users", usersInfo)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          console.log(res.data);
 
-      console.log(res);
+          // setting the user
+          setUser(res.data);
+          toast.success("Sign Up Successfull");
 
-      return;
-    };
-
-    postUser();
-
-    console.log(userData);
+          setTimeout(() => {
+            naviagte("/");
+          }, 1000);
+        }
+      })
+      .catch(() => {
+        toast.error("Register Failed");
+      });
   };
 
   return (

@@ -81,17 +81,20 @@ export default function CollaborativeTask() {
 
   const axiosCustom = useAxiosCustom();
 
-  const { isLoading, isFetching } = useQuery({
-    queryKey: ["taskList"],
+  const { data: collabTasks, isLoading } = useQuery({
+    queryKey: ["collaborativeTask"],
 
     queryFn: async () => {
       const res = await axiosCustom.get("/all-tasks");
 
-      // saving the data in the state
-      setCollaborativeTasks(res.data);
       return res.data;
     },
   });
+
+  // saving the data in state
+  useEffect(() => {
+    setCollaborativeTasks(collabTasks);
+  }, [collabTasks]);
 
   const handleFriendClick = (friendId) => {
     setSelectedFriend(friendId);
@@ -192,16 +195,18 @@ export default function CollaborativeTask() {
             </Link>
           </div>
         </div>
-        {isLoading || isFetching ? (
+        {isLoading ? (
           <div className="h-[calc(100vh-287px)] w-full flex justify-center">
             <Loader />
           </div>
-        ) : (
+        ) : collaborativeTasks?.length > 0 ? (
           <div className="grid grid-cols-2 gap-[30px] h-[calc(100vh-287px)] pr-[10px] overflow-auto">
             {collaborativeTasks.map((task, index) => (
               <Task taskInfo={task} key={index} />
             ))}
           </div>
+        ) : (
+          <p>No collaboration tasks available</p>
         )}
       </div>
     </section>

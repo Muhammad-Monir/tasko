@@ -10,6 +10,7 @@ import CollaborativeTask from "../pages/CollaborativeTask/CollaborativeTask";
 import AddFriends from "../pages/AddFriends.jsx/AddFriends";
 import FriendsRequests from "../pages/FriendsRequests/FriendsRequests";
 import Profile from "../pages/Profile/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -19,27 +20,51 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <PrivateRoute>
+            <Home />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/task/:id",
-        element: <SingleTask />,
+        element: (
+          <PrivateRoute>
+            <SingleTask />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/collaborative-task",
-        element: <CollaborativeTask></CollaborativeTask>,
+        element: (
+          <PrivateRoute>
+            <CollaborativeTask />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-friends",
-        element: <AddFriends />,
+        element: (
+          <PrivateRoute>
+            <AddFriends />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/friends-requests",
-        element: <FriendsRequests />,
+        element: (
+          <PrivateRoute>
+            <FriendsRequests />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/profile",
-        element: <Profile />,
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
       },
     ],
   },
