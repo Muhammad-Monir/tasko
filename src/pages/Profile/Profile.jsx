@@ -10,6 +10,8 @@ import SectionHeading from "../../components/SectionHeading/SectionHeading";
 import editIcon from "../../assets/images/profile-edit-icon.svg";
 import taskComplete from "../../assets/images/complete-task.svg";
 import { useState } from "react";
+import useAuthContext from "../../hooks/useAuthContext";
+import defaultProfile from "../../assets/images/default-profile.png";
 
 const Profile = () => {
   let commonBorderStyle =
@@ -62,6 +64,8 @@ const Profile = () => {
 
   const [badgeList, setBadgeList] = useState(badges);
 
+  const { user } = useAuthContext();
+
   return (
     <section>
       {/* main area wrapper */}
@@ -77,8 +81,8 @@ const Profile = () => {
               {/* profile image */}
               <div className="w-[200px] h-[200px] relative ">
                 <img
-                  className="w-full h-full object-cover rounded-full border-4 border-primaryColor shadow-lg"
-                  src={profileImg}
+                  className="w-full h-full object-contain rounded-full border-4 border-primaryColor shadow-lg"
+                  src={user?.img ? user.img : defaultProfile}
                   alt=""
                 />
 
@@ -92,10 +96,13 @@ const Profile = () => {
               <div className="pt-4 text-center">
                 {/* profile name */}
                 <h3 className="text-[31px] font-semibold text-headingColor leading-[40px]">
-                  Thomas Motu{" "}
+                  {user.userName && user.userName}
                 </h3>
                 {/* email */}
-                <p className="text-sm text-paraLight "> m32220@gmail.com </p>
+                <p className="text-sm text-paraLight ">
+                  {" "}
+                  {user.email && user.email}{" "}
+                </p>
               </div>
             </div>
 

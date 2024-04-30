@@ -6,14 +6,17 @@ import CommonButton from "../../components/CommonButton/CommonButton";
 import taskIcon from "../../assets/images/task-icon.svg";
 import StatusSelect from "../../components/Select/StatusSelect";
 import Loader from "../../components/Loader/Loader";
+import DeletePopUp from "../../components/PopUp/DeletePopUp";
+import { useState } from "react";
 
 const SingleTask = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const axiosCustom = useAxiosCustom();
+  const [isDeletePopUpActive, setIsDeletePopUpActive] = useState(false);
   // using query
   const { data: taskInfo, isLoading } = useQuery({
-    queryKey: ["taskList"],
+    queryKey: [id],
 
     queryFn: async () => {
       const res = await axiosCustom.get(`/task/${id}`);
@@ -54,7 +57,7 @@ const SingleTask = () => {
           <div className="flex flex-col h-full">
             {/* top part */}
             <div className="flex items-center justify-between pb-10 border-b-[1px] border-solid border-[#E1E1E1]">
-              <SectionHeading>Task Details</SectionHeading>
+              <SectionHeading>Task Details </SectionHeading>
 
               {/* buttons area */}
               <div className="flex items-center gap-8">
@@ -237,6 +240,11 @@ const SingleTask = () => {
               </div>
             </div>
 
+            <DeletePopUp
+              isActive={isDeletePopUpActive}
+              setIsActive={setIsDeletePopUpActive}
+            />
+
             {/* task edit area */}
             <div className="flex items-center justify-between">
               {/* status change area */}
@@ -250,7 +258,10 @@ const SingleTask = () => {
               {/* button area */}
               <div className="flex items-center gap-5">
                 {/* delete task */}
-                <div className="w-[270px]">
+                <div
+                  onClick={() => setIsDeletePopUpActive(true)}
+                  className="w-[270px]"
+                >
                   <CommonButton
                     text={"Delete Task"}
                     bGcolor="rgba(255, 76, 36, 0.15)"
