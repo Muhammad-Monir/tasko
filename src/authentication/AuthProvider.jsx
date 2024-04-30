@@ -7,7 +7,7 @@ export const AuthContext = createContext("");
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState("");
-  const [userLoading, setUserLoading] = useState(true);
+  const [userLoading, setUserLoading] = useState(false);
   const axiosSecure = useAxiosSecure();
   const userid = localStorage.getItem("userId");
   //   chekcing if the user is logged in actually
@@ -19,7 +19,8 @@ const AuthProvider = ({ children }) => {
           setUser(res.data);
           setUserLoading(false);
         })
-        .catch(() => {
+        .catch((err) => {
+            console.log(err)
           setUserLoading(false);
         })
         .finally(() => {
@@ -30,7 +31,7 @@ const AuthProvider = ({ children }) => {
     return () => getUser();
 
     // eslint-disable-next-line
-  }, [userid]);
+  }, []);
 
   //   log out function
   const logOut = () => {

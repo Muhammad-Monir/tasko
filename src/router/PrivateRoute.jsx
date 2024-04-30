@@ -5,9 +5,6 @@ import WebPreLoader from "../components/Loader/WebPreLoader";
 
 const PrivateRoute = ({ children }) => {
   const { user, userLoading } = useAuthContext();
-
-  console.log(userLoading);
-
   if (userLoading) {
     return <WebPreLoader />;
   }
