@@ -13,22 +13,18 @@ const AuthProvider = ({ children }) => {
   //   chekcing if the user is logged in actually
   useEffect(() => {
     const getUser = () => {
-      if (!userLoading) {
-        if (userid) {
-          axiosSecure
-            .get(`/users?id=${userid}`)
-            .then((res) => {
-              setUser(res.data);
-            })
-            .catch(() => {})
-            .finally(() => {
-              setUserLoading(false);
-            });
-        } else {
+      axiosSecure
+        .get(`/users?id=${userid}`)
+        .then((res) => {
+          setUser(res.data);
           setUserLoading(false);
-          logOut();
-        }
-      }
+        })
+        .catch(() => {
+          setUserLoading(false);
+        })
+        .finally(() => {
+          setUserLoading(false);
+        });
     };
 
     return () => getUser();
