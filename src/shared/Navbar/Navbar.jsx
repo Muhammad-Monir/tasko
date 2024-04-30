@@ -352,7 +352,7 @@ const Navbar = () => {
         {pathname === "/" ? (
           <div className="pt-[42px]">
             <p className="text-[24px] font-semibold text-primaryColor mb-[4px]">
-              Hi {user.userName ? user.userName : "Person"}
+              Hi {user?.userName ? user.userName : "Person"}
             </p>
             <h1 className="text-[40px] font-semibold text-white">
               Welcome to Dashboard
