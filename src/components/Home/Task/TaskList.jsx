@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAxiosCustom from "../../../hooks/useAxiosCustom";
 import Task from "./Task";
 import { useQuery } from "@tanstack/react-query";
@@ -11,29 +11,31 @@ function TaskList() {
   const axiosCustom = useAxiosCustom();
 
   // using query
-  const { isLoading, isFetching } = useQuery({
-    queryKey: ["taskList"],
+  const { data, isLoading } = useQuery({
+    queryKey: ["mainTasks"],
 
     queryFn: async () => {
       const res = await axiosCustom.get("/all-tasks");
-
-      // saving the data in the state
-      setTaskList(res.data);
 
       return res.data;
     },
   });
 
+  useEffect(() => {
+    // saving the data in the state
+    setTaskList(data);
+  }, [data]);
+
   return (
     <div>
-      {isLoading || isFetching ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <div>
           {taskList?.length > 0 ? (
-            // Use cached data if available
+            // Use cached taskList if available
             <div className="grid grid-cols-3 gap-6">
-              {taskList.map((singleTask, index) => (
+              {data.map((singleTask, index) => (
                 <Task taskInfo={singleTask} key={index} />
               ))}
             </div>

@@ -1,17 +1,20 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/logo.svg";
 import HeaderBg from "../../assets/images/header-bg.png";
 import TalentedBadge from "../../assets/images/talented-badge.svg";
 import UserImage from "../../assets/images/user.png";
 import { useEffect, useState } from "react";
+import useAuthContext from "../../hooks/useAuthContext";
+import defaultProfile from "../../assets/images/default-profile.png";
 
 const Navbar = () => {
   const [isDropdownActive, setIsDropdownActive] = useState(false);
   const [shortNav, setShortNav] = useState("");
   const [tallNav, setTallNav] = useState("");
-  let userName = "ThomasM.";
-
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const { user, logOut } = useAuthContext();
 
   useEffect(() => {
     if (pathname === "/") {
@@ -241,12 +244,12 @@ const Navbar = () => {
                 onClick={() => setIsDropdownActive(!isDropdownActive)}
               >
                 <img
-                  className="h-[40px] w-[40px] object-cover rounded-full"
-                  src={UserImage}
+                  className="h-[40px] w-[40px] object-contain rounded-full"
+                  src={user?.img ? user.img : defaultProfile}
                   alt=""
                 />
                 <p className="text-[18px] text-white font-medium capitalize ml-[11px]">
-                  {userName.split(" ")[0]}
+                  {user?.userName && user.userName.split(" ")[0]}
                 </p>
                 <svg
                   className="ml-[4px]"
@@ -316,7 +319,13 @@ const Navbar = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <div className="logout cursor-pointer">
+                  <div
+                    onClick={() => {
+                      logOut();
+                      navigate("/login");
+                    }}
+                    className="logout cursor-pointer"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="18"
@@ -343,7 +352,7 @@ const Navbar = () => {
         {pathname === "/" ? (
           <div className="pt-[42px]">
             <p className="text-[24px] font-semibold text-primaryColor mb-[4px]">
-              Hi Thomas
+              Hi {user.userName ? user.userName : "Person"}
             </p>
             <h1 className="text-[40px] font-semibold text-white">
               Welcome to Dashboard
