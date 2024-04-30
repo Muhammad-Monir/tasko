@@ -22,7 +22,7 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const { setUser } = useAuthContext();
+  const { setUser, setUserLoading } = useAuthContext();
   const naviagte = useNavigate();
 
   const handlePasswordShow = () => {
@@ -48,12 +48,10 @@ const Login = () => {
     axiosAuth
       .post("/users", usersInfo)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
-          console.log(res.data);
-
           // setting the user
           setUser(res.data);
+          setUserLoading(false);
           toast.success("Sign Up Successfull");
 
           setTimeout(() => {
@@ -62,6 +60,7 @@ const Login = () => {
         }
       })
       .catch(() => {
+        setUserLoading(false);
         toast.error("Register Failed");
       });
   };
