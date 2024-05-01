@@ -11,6 +11,9 @@ import AddFriends from "../pages/AddFriends.jsx/AddFriends";
 import FriendsRequests from "../pages/FriendsRequests/FriendsRequests";
 import Profile from "../pages/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
+import AddTask from "../pages/AddTask/AddTask";
+import Settings from "../pages/Settings/Settings";
+import Notifications from "../pages/Notifications/Notifications";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +66,30 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/add-task",
+        element: (
+          <PrivateRoute>
+            <AddTask />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/settings",
+        element: (
+          <PrivateRoute>
+            <Settings />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/notifications",
+        element: (
+          <PrivateRoute>
+            <Notifications />
           </PrivateRoute>
         ),
       },

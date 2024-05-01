@@ -8,6 +8,7 @@ import StatusSelect from "../../components/Select/StatusSelect";
 import Loader from "../../components/Loader/Loader";
 import DeletePopUp from "../../components/PopUp/DeletePopUp";
 import { useState } from "react";
+import editIcon from "../../assets/images/edit-icon.svg";
 
 const SingleTask = () => {
   const { id } = useParams();
@@ -59,8 +60,8 @@ const SingleTask = () => {
             <div className="flex items-center justify-between pb-10 border-b-[1px] border-solid border-[#E1E1E1]">
               <SectionHeading>Task Details </SectionHeading>
 
-              {/* buttons area */}
-              <div className="flex items-center gap-8">
+              {/* top-left part */}
+              <div className="flex items-center gap-[60px] ">
                 {/* points */}
                 <p
                   style={{
@@ -71,8 +72,19 @@ const SingleTask = () => {
                   {" "}
                   {taskInfo?.point} Points{" "}
                 </p>
-                <div className="w-[145px]" onClick={() => navigate(-1)}>
-                  <CommonButton text={"Back"}></CommonButton>
+                {/* buttons area */}
+                <div className="flex items-center gap-4">
+                  <div className="w-[145px]">
+                    <CommonButton
+                      icon={editIcon}
+                      text={"Edit Task"}
+                      color="#FFAB00"
+                      bGcolor="rgba(255, 171, 0, 0.10)"
+                    ></CommonButton>
+                  </div>
+                  <div className="w-[145px]" onClick={() => navigate(-1)}>
+                    <CommonButton text={"Back"}></CommonButton>
+                  </div>
                 </div>
               </div>
             </div>

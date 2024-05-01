@@ -4,6 +4,7 @@ import CommonButton from "../../components/CommonButton/CommonButton";
 import AddSvg from "../../assets/images/addicon.svg";
 import TaskList from "../../components/Home/Task/TaskList";
 import SectionHeading from "../../components/SectionHeading/SectionHeading";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -13,9 +14,9 @@ const Home = () => {
         <div className="flex items-start gap-[16px]">
           <CategorySelect />
           <StatusSelect />
-          <div className="w-[231px]">
-              <CommonButton icon={AddSvg} text="Add New Task" />
-          </div>
+          <Link to={"/add-task"} className="w-[231px] inline-block">
+            <CommonButton icon={AddSvg} text="Add New Task" />
+          </Link>
         </div>
       </div>
 

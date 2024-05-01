@@ -2,7 +2,6 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/logo.svg";
 import HeaderBg from "../../assets/images/header-bg.png";
 import TalentedBadge from "../../assets/images/talented-badge.svg";
-import UserImage from "../../assets/images/user.png";
 import { useEffect, useState } from "react";
 import useAuthContext from "../../hooks/useAuthContext";
 import defaultProfile from "../../assets/images/default-profile.png";
@@ -196,7 +195,7 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="flex items-center gap-[29px]">
-            <NavLink to={"/demo"}>
+            <NavLink to={"/notifications"}>
               <div className="relative flex items-center justify-center h-[40px] w-[40px] rounded-full bg-[#232b35]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -276,7 +275,7 @@ const Navbar = () => {
               >
                 <li>
                   <NavLink
-                    to={"/Settings"}
+                    to={"/settings"}
                     className={({ isActive }) => (isActive ? "linkActive" : "")}
                   >
                     <svg
