@@ -7,7 +7,7 @@ export const AuthContext = createContext("");
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState("");
-  const [userLoading, setUserLoading] = useState(false);
+  const [userLoading, setUserLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
   const userid = localStorage.getItem("userId");
   //   chekcing if the user is logged in actually

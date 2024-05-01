@@ -5,15 +5,18 @@ import WebPreLoader from "../components/Loader/WebPreLoader";
 
 const PrivateRoute = ({ children }) => {
   const { user, userLoading } = useAuthContext();
-  if (userLoading) {
-    return <WebPreLoader />;
-  }
+  // if (userLoading) {
+  //   return <WebPreLoader />;
+  // }
 
-  if (user) {
-    return children;
-  }
 
-  return <Navigate to={"/login"} replace></Navigate>;
+  // if (user) {
+  //   return children;
+  // }
+
+  // return <Navigate to={"/login"} replace></Navigate>;
+
+  return children
 };
 
 PrivateRoute.propTypes = {
