@@ -29,6 +29,8 @@ const AuthProvider = ({ children }) => {
           .finally(() => {
             setUserLoading(false);
           });
+      } else {
+        setUserLoading(false);
       }
     };
 
