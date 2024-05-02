@@ -38,7 +38,7 @@ const Login = () => {
 
     axiosAuth
       .post("/users/login", userInfo)
-      .then((res) => {
+      .then(async (res) => {
         const authorization = res.headers.authorization;
         const userId = res.headers.userid;
 
@@ -47,7 +47,7 @@ const Login = () => {
         localStorage.setItem("userId", userId);
 
         // making another request to get the user
-        axiosSecure
+        await axiosSecure
           .get(`/users?id=${userId}`)
           .then((res) => {
             toast.success("Logged in Successfully");
