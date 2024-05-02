@@ -9,14 +9,13 @@ const PrivateRoute = ({ children }) => {
   //   return <WebPreLoader />;
   // }
 
-
   // if (user) {
   //   return children;
   // }
 
   // return <Navigate to={"/login"} replace></Navigate>;
 
-  return children
+  return children;
 };
 
 PrivateRoute.propTypes = {
