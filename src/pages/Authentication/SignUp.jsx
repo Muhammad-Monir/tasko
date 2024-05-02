@@ -15,7 +15,7 @@ const Login = () => {
 
   const axiosAuth = useAxiosAuth();
 
-  const [isNotMatch, setIsNotMatch] = useState(false);
+  const [isNotMatch, setIsNotMatch, setUserToken] = useState(false);
   const {
     register,
     handleSubmit,
@@ -37,7 +37,6 @@ const Login = () => {
     }
 
     //  creating  the user
-
     const usersInfo = {
       email: userData.email,
       password: userData.password,
@@ -51,6 +50,7 @@ const Login = () => {
         if (res.status === 200) {
           // setting the user
           setUser(res.data);
+          setUserToken(res.data.userid);
           setUserLoading(false);
           toast.success("Sign Up Successfull");
 
