@@ -6,25 +6,30 @@ import toast from "react-hot-toast";
 export const AuthContext = createContext("");
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(null);
+  const [userToken, setUserToken] = useState(
+    localStorage.getItem("userId") || ""
+  );
   const [userLoading, setUserLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
-  const userid = localStorage.getItem("userId");
   //   chekcing if the user is logged in actually
   useEffect(() => {
     const getUser = () => {
-      axiosSecure
-        .get(`/users?id=${userid}`)
-        .then((res) => {
-          setUser(res.data);
-          setUserLoading(false);
-        })
-        .catch((err) => {
-          setUserLoading(false);
-        })
-        .finally(() => {
-          setUserLoading(false);
-        });
+      if (userToken) {
+        axiosSecure
+          .get(`/users?id=${userToken}`)
+          .then((res) => {
+            setUser(res.data);
+            setUserLoading(false);
+          })
+          .catch((err) => {
+            console.log(err);
+            setUserLoading(false);
+          })
+          .finally(() => {
+            setUserLoading(false);
+          });
+      }
     };
 
     return () => getUser();
@@ -48,6 +53,8 @@ const AuthProvider = ({ children }) => {
     setUserLoading,
     userLoading,
     logOut,
+    userToken,
+    setUserToken,
   };
 
   return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
