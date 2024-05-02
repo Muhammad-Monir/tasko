@@ -20,7 +20,6 @@ const AuthProvider = ({ children }) => {
           setUserLoading(false);
         })
         .catch((err) => {
-            console.log(err)
           setUserLoading(false);
         })
         .finally(() => {
