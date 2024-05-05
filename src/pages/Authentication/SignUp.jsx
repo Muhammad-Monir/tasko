@@ -15,14 +15,14 @@ const Login = () => {
 
   const axiosAuth = useAxiosAuth();
 
-  const [isNotMatch, setIsNotMatch, setUserToken] = useState(false);
+  const [isNotMatch, setIsNotMatch] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const { setUser, setUserLoading } = useAuthContext();
+  const { setUser, setUserLoading, setUserToken } = useAuthContext();
   const naviagte = useNavigate();
 
   const handlePasswordShow = () => {
@@ -47,21 +47,24 @@ const Login = () => {
     axiosAuth
       .post("/users", usersInfo)
       .then((res) => {
-        if (res.status === 200) {
-          // setting the user
-          setUser(res.data);
-          setUserToken(res.data.userid);
-          setUserLoading(false);
-          toast.success("Sign Up Successfull");
+        console.log("user created");
 
-          setTimeout(() => {
-            naviagte("/");
-          }, 1000);
-        }
-      })
-      .catch(() => {
+        // setting the user
+        setUser(res.data);
+        setUserToken(res.data.userid);
         setUserLoading(false);
-        toast.error("Register Failed");
+        toast.success("Sign Up Successfull");
+
+        setTimeout(() => {
+          naviagte("/");
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.message) {
+          setUserLoading(false);
+          toast.error("Register Failed");
+        }
       });
   };
 
