@@ -73,8 +73,6 @@ const Login = () => {
           toast.error("An error occured , Please Try again");
           reset();
         }
-
-        toast.error("Login Failed");
       });
   };
 
