@@ -67,7 +67,7 @@ const Login = () => {
           });
       })
       .catch((err) => {
-        if (err.response.status === 403) {
+        if (err?.response?.status === 403) {
           return toast.error("Invalid Credentials");
         } else {
           toast.error("An error occured , Please Try again");
