@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const axiosAuth = useAxiosAuth();
   const axiosSecure = useAxiosSecure();
-  const { setUser, setUserLoading } = useAuthContext();
+  const { setUser, setUserLoading, setUserToken } = useAuthContext();
   const {
     register,
     handleSubmit,
@@ -51,6 +51,9 @@ const Login = () => {
           .get(`/users?id=${userId}`)
           .then((res) => {
             toast.success("Logged in Successfully");
+
+            // setting the token and user data to state so that we can enter private route
+            setUserToken(res.data.userId);
             setUser(res.data);
 
             reset();

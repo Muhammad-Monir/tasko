@@ -20,9 +20,10 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
-  const { setUser, setUserLoading, setUserToken } = useAuthContext();
+  const { setUserLoading } = useAuthContext();
   const naviagte = useNavigate();
 
   const handlePasswordShow = () => {
@@ -46,25 +47,21 @@ const Login = () => {
     // submiting the user
     axiosAuth
       .post("/users", usersInfo)
-      .then((res) => {
-        console.log("user created");
-
-        // setting the user
-        setUser(res.data);
-        setUserToken(res.data.userid);
+      .then(() => {
+        // setting the user loading false and redirecting for login
         setUserLoading(false);
-        toast.success("Sign Up Successfull");
+        toast.success("Sign Up Successfull , Please Log In");
+        reset();
 
         setTimeout(() => {
-          naviagte("/");
+          naviagte("/login");
         }, 1000);
       })
       .catch((err) => {
         console.log(err);
-        if (err.message) {
-          setUserLoading(false);
-          toast.error("Register Failed");
-        }
+
+        setUserLoading(false);
+        toast.error("Register Failed");
       });
   };
 
@@ -225,7 +222,7 @@ const Login = () => {
               )}
               {isNotMatch && (
                 <p className="text-[14px] font-normal text-red-600 mt-[6px]">
-                  Password don't matched
+                  Password {`don't`} matched
                 </p>
               )}
             </div>
