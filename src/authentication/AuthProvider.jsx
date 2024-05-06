@@ -12,6 +12,8 @@ const AuthProvider = ({ children }) => {
   );
   const [userLoading, setUserLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
+  
+
   //   chekcing if the user is logged in actually
   useEffect(() => {
     const getUser = () => {
@@ -19,6 +21,7 @@ const AuthProvider = ({ children }) => {
         axiosSecure
           .get(`/users?id=${userToken}`)
           .then((res) => {
+            console.log(res)
             setUser(res.data);
             setUserLoading(false);
           })
@@ -56,7 +59,7 @@ const AuthProvider = ({ children }) => {
     userLoading,
     logOut,
     userToken,
-    setUserToken,
+    setUserToken
   };
 
   return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
