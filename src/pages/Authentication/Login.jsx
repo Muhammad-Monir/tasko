@@ -68,11 +68,13 @@ const Login = () => {
       })
       .catch((err) => {
         if (err.response.status === 403) {
-          toast.error("Invalid Credentials");
+          return toast.error("Invalid Credentials");
         } else {
           toast.error("An error occured , Please Try again");
           reset();
         }
+
+        toast.error("Login Failed");
       });
   };
 
