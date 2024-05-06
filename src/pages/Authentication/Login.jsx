@@ -60,7 +60,11 @@ const Login = () => {
             navigate("/");
             setUserLoading(false);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            console.log(err);
+
+            toast.error("Login Failed");
+          });
       })
       .catch((err) => {
         if (err.response.status === 403) {
