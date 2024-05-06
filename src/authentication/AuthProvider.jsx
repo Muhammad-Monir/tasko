@@ -8,7 +8,7 @@ export const AuthContext = createContext("");
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userToken, setUserToken] = useState(
-    localStorage.getItem("userId") || ""
+    localStorage.getItem("userId") || null
   );
   const [userLoading, setUserLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
       }
     };
 
-    return () => getUser();
+    getUser();
 
     // eslint-disable-next-line
   }, []);
