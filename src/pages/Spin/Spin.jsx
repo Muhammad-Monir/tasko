@@ -28,7 +28,7 @@ const Spin = () => {
     segments,
     onFinished: handleSpinFinish,
     primaryColor: "black",
-    contrastColor: "#2F911E",
+    contrastColor: "#fff",
     buttonText: "Spin",
     isOnlyOnce: false,
     size: 290,
