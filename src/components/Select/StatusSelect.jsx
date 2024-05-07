@@ -1,8 +1,9 @@
+import PropTypes from "prop-types";
 import { useEffect, useState, useRef } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
-export default function StatusSelect() {
+export default function StatusSelect({ setSelectedValue }) {
   const axiosSecure = useAxiosSecure();
 
   const { data: taskStatusList } = useQuery({
@@ -19,6 +20,9 @@ export default function StatusSelect() {
 
   const handleSelect = (data) => {
     setSelectedStatus(data);
+
+    // passing the selected value to outer components
+    setSelectedValue(data);
     setIsShow(false);
   };
 
@@ -78,3 +82,7 @@ export default function StatusSelect() {
     </div>
   );
 }
+
+StatusSelect.propTypes = {
+  setSelectedValue: PropTypes.func,
+};

@@ -15,6 +15,8 @@ const SingleTask = () => {
   const navigate = useNavigate();
   const axiosCustom = useAxiosCustom();
   const [isDeletePopUpActive, setIsDeletePopUpActive] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState(null);
+
   // using query
   const { data: taskInfo, isLoading } = useQuery({
     queryKey: [id],
@@ -249,6 +251,16 @@ const SingleTask = () => {
                     </p>
                   </div>
                 </div>
+
+                {/* status change area */}
+                <div className="pt-16 w-fit">
+                  <p className="text-base text-headingColor font-semibold leading-5 pb-2">
+                    Change Status
+                  </p>
+                  <StatusSelect
+                    setSelectedValue={setSelectedStatus}
+                  ></StatusSelect>
+                </div>
               </div>
             </div>
 
@@ -258,17 +270,9 @@ const SingleTask = () => {
             />
 
             {/* task edit area */}
-            <div className="flex items-center justify-between">
-              {/* status change area */}
-              <div>
-                <p className="text-base text-headingColor font-semibold leading-5 pb-2">
-                  Change Status
-                </p>
-                <StatusSelect></StatusSelect>
-              </div>
-
+            <div className="flex items-center">
               {/* button area */}
-              <div className="flex items-center gap-5">
+              <div className="flex items-center gap-5 ml-auto">
                 {/* delete task */}
                 <div
                   onClick={() => setIsDeletePopUpActive(true)}
