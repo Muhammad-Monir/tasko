@@ -15,6 +15,8 @@ const Spin = () => {
     // Add more segments as needed
   ];
 
+  const [spinItems, setSpinItems] = useState(segments);
+
   const [showInstruction, setShowInstruction] = useState(true);
   const [selectedResult, setSelectedResult] = useState(null);
 
@@ -26,7 +28,6 @@ const Spin = () => {
   };
 
   const spinWheelProps = {
-    segments,
     onFinished: handleSpinFinish,
     primaryColor: "black",
     contrastColor: "#fff",
@@ -51,13 +52,19 @@ const Spin = () => {
           <p className="text-headingColor text-base font-semibold leading-5 pb-3 ">
             Select Task Category
           </p>
-          <CategorySelect />
+          <div className="w-[305px]">
+            <CategorySelect />
+          </div>
         </div>
       </div>
 
       {/* spinner */}
       <div className="w-[500px] mx-auto">
-        <SpinWheel {...spinWheelProps} />
+        <SpinWheel
+          key={spinItems.length}
+          {...spinWheelProps}
+          segments={spinItems}
+        />
       </div>
 
       {/* selected text */}

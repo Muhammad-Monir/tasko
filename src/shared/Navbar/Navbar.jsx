@@ -47,7 +47,7 @@ const Navbar = () => {
         backgroundImage: `url(${HeaderBg})`,
       }}
       className={`${shortNav ? "h-[175px]" : ""} ${
-        tallNav ? "h-[306px]" : ""
+        tallNav ? " h-[200px] lg:h-[306px]" : ""
       } pt-[26px] pb-[30px] bg-cover bg-no-repeat`}
     >
       <div className="container">
@@ -197,12 +197,12 @@ const Navbar = () => {
           </div>
 
           {/* nav profile */}
-          <div className=" items-center lg:gap-[29px] profile--info--list  flex">
+          <div className=" items-center gap-2 lg:gap-[29px] profile--info--list  flex">
             <NavLink
               to={"/notifications"}
               className={({ isActive }) => (isActive ? "linkActive" : "")}
             >
-              <div className="relative flex items-center justify-center h-[40px] w-[40px] rounded-full bg-[#232b35]">
+              <div className="relative flex items-center justify-center h-8 w-8 lg:h-[40px] lg:w-[40px] rounded-full bg-[#232b35]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -228,7 +228,7 @@ const Navbar = () => {
                     strokeMiterlimit="10"
                   />
                 </svg>
-                <p className="absolute top-[12px] right-[12px] h-[6px] w-[6px] bg-[#ED0006] rounded-full outline-[3px]"></p>
+                <p className="absolute top-2 right-2 lg:top-[12px] lg:right-[12px] h-[6px] w-[6px] bg-[#ED0006] rounded-full outline-[3px]"></p>
               </div>
             </NavLink>
             <div className="gap-[8px] items-center py-[7px] px-[10px] bg-[#353750] rounded-[114px] hidden lg:flex">
@@ -249,7 +249,7 @@ const Navbar = () => {
                 onClick={() => setIsDropdownActive(!isDropdownActive)}
               >
                 <img
-                  className="h-[40px] w-[40px] object-cover rounded-full"
+                  className=" h-8 w-8 lg:h-[40px] lg:w-[40px] object-cover rounded-full"
                   src={
                     user?.img
                       ? `data:image/jpeg;base64,${user.img.underlyingStream.bytes}`
@@ -359,11 +359,11 @@ const Navbar = () => {
           </div>
         </div>
         {pathname === "/" ? (
-          <div className="pt-[42px]">
-            <p className="text-[24px] font-semibold text-primaryColor mb-[4px]">
-              Hi {user?.userName ? user.userName : "Person"}
+          <div className=" pt-7 lg:pt-[42px]">
+            <p className=" text-xl lg:text-[24px] font-semibold text-primaryColor mb-[4px]">
+              Hi , {user?.userName ? user.userName : "Person"}
             </p>
-            <h1 className="text-[40px] font-semibold text-white">
+            <h1 className=" text-[28px]  lg:text-[40px] font-semibold text-white">
               Welcome to Dashboard
             </h1>
           </div>

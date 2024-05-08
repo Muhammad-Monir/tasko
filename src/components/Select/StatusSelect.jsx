@@ -42,10 +42,10 @@ export default function StatusSelect({ setSelectedValue }) {
   }, []);
 
   return (
-    <div className="relative cursor-pointer">
+    <div className="relative cursor-pointer w-full">
       <div
         ref={triggerRef}
-        className={`select--toggler flex w-[220px] items-center justify-between py-[12px] px-[16px] border-[1px] border-[#e1e1e1] rounded-[8px] text-paraLight font-medium`}
+        className={`select--toggler flex w-full items-center justify-between py-2.5 px-3  lg:py-[12px] lg:px-[16px] border-[1px] border-[#e1e1e1] rounded-[8px] text-paraLight font-medium text-sm lg:text-base`}
         onClick={() => setIsShow(!isShow)}
       >
         {selectedStatus === "" ? "Select Status" : selectedStatus.statusTitle}

@@ -260,9 +260,11 @@ const SingleTask = () => {
                   <p className="text-base text-headingColor font-semibold leading-5 pb-2">
                     Change Status
                   </p>
-                  <StatusSelect
-                    setSelectedValue={setSelectedStatus}
-                  ></StatusSelect>
+                  <div className="w-[410px]">
+                    <StatusSelect
+                      setSelectedValue={setSelectedStatus}
+                    ></StatusSelect>
+                  </div>
                 </div>
               </div>
             </div>
