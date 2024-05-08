@@ -51,14 +51,15 @@ const Navbar = () => {
       } pt-[26px] pb-[30px] bg-cover bg-no-repeat`}
     >
       <div className="container">
-        <div className="flex items-center justify-between">
-          <div>
-            <Link to={"/"}>
-              <img src={Logo} alt="" />
+        <div className="flex items-center justify-between  2xl:flex-row">
+          <div className="w-[115px]">
+            <Link className="w-full block" to={"/"}>
+              <img className="w-full" src={Logo} alt="" />
             </Link>
           </div>
+          {/* nav links */}
           <div>
-            <ul className="menu--wrap flex items-center gap-[50px]">
+            <ul className="menu--wrap  items-center gap-[50px] hidden 2xl:flex 2xl:flex-row ">
               <li>
                 <NavLink
                   to={"/"}
@@ -194,7 +195,9 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <div className="flex items-center gap-[29px] profile--info--list">
+
+          {/* nav profile */}
+          <div className=" items-center lg:gap-[29px] profile--info--list  flex">
             <NavLink
               to={"/notifications"}
               className={({ isActive }) => (isActive ? "linkActive" : "")}
@@ -228,13 +231,13 @@ const Navbar = () => {
                 <p className="absolute top-[12px] right-[12px] h-[6px] w-[6px] bg-[#ED0006] rounded-full outline-[3px]"></p>
               </div>
             </NavLink>
-            <div className="flex gap-[8px] items-center py-[7px] px-[10px] bg-[#353750] rounded-[114px]">
+            <div className="gap-[8px] items-center py-[7px] px-[10px] bg-[#353750] rounded-[114px] hidden lg:flex">
               <img
                 className="w-[24px] h-[20px] object-cover"
                 src={TalentedBadge}
                 alt=""
               />
-              <p className="text-[16px] text-[#fff] font-normal capitalize">
+              <p className="text-[16px] text-[#fff] font-normal capitalize ">
                 Level 2
               </p>
             </div>
@@ -276,9 +279,9 @@ const Navbar = () => {
               </div>
               {/* profile dropdown */}
               <ul
-                className={`profile--dropdown w-[168px] absolute top-[80px] ${
+                className={`profile--dropdown w-[168px] absolute top-[80px]  ${
                   isDropdownActive ? "show" : ""
-                } left-0 py-[6px] bg-white rounded-[8px]`}
+                } right-0 py-[6px] bg-white rounded-[8px]`}
               >
                 <li>
                   <NavLink

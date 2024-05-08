@@ -9,12 +9,15 @@ import Loader from "../../components/Loader/Loader";
 import DeletePopUp from "../../components/PopUp/DeletePopUp";
 import { useState } from "react";
 import editIcon from "../../assets/images/edit-icon.svg";
+import CongratsPopUp from "../../components/PopUp/CongratsPopUp";
 
 const SingleTask = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const axiosCustom = useAxiosCustom();
   const [isDeletePopUpActive, setIsDeletePopUpActive] = useState(false);
+  const [isSubmitPopUP, setSubmitPopUP] = useState(false);
+  // eslint-disable-next-line
   const [selectedStatus, setSelectedStatus] = useState(null);
 
   // using query
@@ -264,11 +267,6 @@ const SingleTask = () => {
               </div>
             </div>
 
-            <DeletePopUp
-              isActive={isDeletePopUpActive}
-              setIsActive={setIsDeletePopUpActive}
-            />
-
             {/* task edit area */}
             <div className="flex items-center">
               {/* button area */}
@@ -290,6 +288,17 @@ const SingleTask = () => {
                 </div>
               </div>
             </div>
+
+            <DeletePopUp
+              isActive={isDeletePopUpActive}
+              setIsActive={setIsDeletePopUpActive}
+            />
+
+            <CongratsPopUp
+              isActive={isSubmitPopUP}
+              setIsActive={setSubmitPopUP}
+              mainText={"Successfully Completed the Task!"}
+            />
           </div>
         )
       )}

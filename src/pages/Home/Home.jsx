@@ -9,9 +9,9 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <section>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-col lg:flex-row">
         <SectionHeading>All Task List</SectionHeading>
-        <div className="flex items-start gap-[16px]">
+        <div className="flex items-start gap-[16px] flex-col lg:flex-row">
           <CategorySelect />
           <StatusSelect />
           <Link to={"/add-task"} className="w-[231px] inline-block">

@@ -10,14 +10,14 @@ const Layout = () => {
       {/* main area */}
       <main>
         <div
-          className={`main--content--upper  w-[1320px] mx-auto -mt-[60px] overflow-hidden rounded-[24px]`}
+          className={`main--content--upper w-full 2xl:w-[1320px] mx-auto -mt-[60px] overflow-hidden rounded-[24px]  `}
         >
           <div
-            className={`main--content--wrapper overflow-hidden ${
+            className={`main--content--wrapper overflow-hidden bg-[#fff] ${
               pathname === "/"
                 ? "h-[calc(100vh-280px)]"
                 : "h-[calc(100vh-150px)]"
-            } bg-white`}
+            } `}
           >
             <Outlet></Outlet>
           </div>
