@@ -15,6 +15,7 @@ const Spin = () => {
     // Add more segments as needed
   ];
 
+  // eslint-disable-next-line
   const [spinItems, setSpinItems] = useState(segments);
 
   const [showInstruction, setShowInstruction] = useState(true);
@@ -44,22 +45,22 @@ const Spin = () => {
   return (
     <div>
       {/* top part */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-col lg:flex-row w-full gap-5 lg:gap-0">
         <SectionHeading>Spin Wheel</SectionHeading>
 
         {/* task category selection */}
-        <div>
+        <div className="w-full lg:w-fit">
           <p className="text-headingColor text-base font-semibold leading-5 pb-3 ">
             Select Task Category
           </p>
-          <div className="w-[305px]">
+          <div className=" w-full lg:w-[305px]">
             <CategorySelect />
           </div>
         </div>
       </div>
 
       {/* spinner */}
-      <div className="w-[500px] mx-auto">
+      <div className="w-[300px]  lg:w-[500px] mx-auto mt-6 lg:mt-0">
         <SpinWheel
           key={spinItems.length}
           {...spinWheelProps}
@@ -69,7 +70,7 @@ const Spin = () => {
 
       {/* selected text */}
       {selectedResult && (
-        <p className="text-center py-6 text-2xl font-semibold text-primaryColor">
+        <p className="text-center py-6 text-xl lg:text-2xl font-semibold text-primaryColor ">
           {selectedResult}
         </p>
       )}

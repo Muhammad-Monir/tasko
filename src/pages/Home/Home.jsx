@@ -5,8 +5,11 @@ import AddSvg from "../../assets/images/addicon.svg";
 import TaskList from "../../components/Home/Task/TaskList";
 import SectionHeading from "../../components/SectionHeading/SectionHeading";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Home = () => {
+  const [selectedStatus, setSelectedStatus] = useState(null);
+
   return (
     <section>
       <div className="flex items-center justify-between  flex-col gap-2 lg:flex-row">
@@ -18,7 +21,7 @@ const Home = () => {
             <CategorySelect />
           </div>
           <div className="w-full lg:w-[220px]">
-            <StatusSelect />
+            <StatusSelect setSelectedValue={setSelectedStatus} />
           </div>
           <Link to={"/add-task"} className="w-full sm:w-[231px] inline-block">
             <CommonButton icon={AddSvg} text="Add New Task" />

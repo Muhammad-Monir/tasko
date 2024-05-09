@@ -60,26 +60,26 @@ const SingleTask = () => {
       ) : (
         taskInfo.id && (
           // Task Wrapper
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col h-full overflow-y-auto no--scrollbar">
             {/* top part */}
-            <div className="flex items-center justify-between pb-10 border-b-[1px] border-solid border-[#E1E1E1]">
+            <div className="flex items-start justify-between pb-4 lg:pb-10 border-b-[1px] border-solid border-[#E1E1E1] flex-col lg:flex-row gap-5 relative lg:gap-0  lg:items-center">
               <SectionHeading>Task Details </SectionHeading>
 
               {/* top-left part */}
-              <div className="flex items-center gap-[60px] ">
+              <div className="flex items-center lg:gap-[60px] w-full md:w-fit">
                 {/* points */}
                 <p
                   style={{
                     color: currentColor,
                   }}
-                  className="text-base font-semibold "
+                  className="text-base font-semibold absolute top-0 right-0 lg:relative "
                 >
                   {" "}
                   {taskInfo?.point} Points{" "}
                 </p>
                 {/* buttons area */}
-                <div className="flex items-center gap-4">
-                  <div className="w-[145px]">
+                <div className="flex items-center gap-4 w-full lg:w-fit ">
+                  <div className=" w-full md:w-[145px]">
                     <CommonButton
                       icon={editIcon}
                       text={"Edit Task"}
@@ -87,7 +87,10 @@ const SingleTask = () => {
                       bGcolor="rgba(255, 171, 0, 0.10)"
                     ></CommonButton>
                   </div>
-                  <div className="w-[145px]" onClick={() => navigate(-1)}>
+                  <div
+                    className=" w-full md:w-[145px]"
+                    onClick={() => navigate(-1)}
+                  >
                     <CommonButton text={"Back"}></CommonButton>
                   </div>
                 </div>
@@ -95,30 +98,30 @@ const SingleTask = () => {
             </div>
 
             {/* hero section */}
-            <div className="pt-10 flex items-start gap-6 flex-grow ">
+            <div className=" pt-5 lg:pt-10 flex items-start gap-3 lg:gap-6 flex-grow flex-col lg:flex-row ">
               {/* icon area */}
-              <div className="min-w-[120px] h-[120px] overflow-hidden">
+              <div className=" min-w-[60px] h-[60px]  max-w-[60px] md:min-w-[120px] md:max-w-[120px] md:h-[120px] overflow-hidden">
                 <img
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain md:object-cover"
                   src={taskIcon}
                   alt=""
                 />
               </div>
               {/* details area */}
-              <div>
+              <div className="">
                 {/* title */}
-                <h3 className="text-[30px] leading-[40px] font-semibold text-headingColor ">
+                <h3 className=" text-[24px] leading-6  lg:text-[30px] lg:leading-[40px] font-semibold text-headingColor ">
                   {" "}
                   {taskInfo.title}{" "}
                 </h3>
                 {/* description */}
-                <p className="text-[17px] text-paraLight leading-[30px]">
+                <p className=" text-sm lg:text-[17px] text-paraLight leading-6 w-full lg:leading-[30px] pt-3">
                   {" "}
                   {taskInfo.description}{" "}
                 </p>
 
                 {/* task info area */}
-                <div className="pt-16 flex items-center gap-10">
+                <div className="pt-16 hidden items-center gap-10 flex-col  lg:flex-row">
                   {/* date area */}
                   <div>
                     <p className="pb-4 text-[18px] font-semibold">End Date</p>
@@ -256,7 +259,7 @@ const SingleTask = () => {
                 </div>
 
                 {/* status change area */}
-                <div className="pt-16 w-fit">
+                <div className="pt-16 w-fit hidden lg:block">
                   <p className="text-base text-headingColor font-semibold leading-5 pb-2">
                     Change Status
                   </p>
@@ -270,13 +273,24 @@ const SingleTask = () => {
             </div>
 
             {/* task edit area */}
-            <div className="flex items-center">
+            <div className="flex items-center flex-col lg:flex-row ">
+              {/* status change area */}
+              <div className=" pt-4 pb-4 lg:pb-0 lg:pt-16 w-full lg:w-fit lg:hidden ">
+                <p className="text-base text-headingColor font-semibold leading-5 pb-2">
+                  Change Status
+                </p>
+                <div className="w-full lg:w-[410px]">
+                  <StatusSelect
+                    setSelectedValue={setSelectedStatus}
+                  ></StatusSelect>
+                </div>
+              </div>
               {/* button area */}
-              <div className="flex items-center gap-5 ml-auto">
+              <div className="flex items-center gap-3  pt-2 lg:pt-0 lg:gap-5 ml-auto flex-col lg:flex-row w-full lg:w-fit">
                 {/* delete task */}
                 <div
                   onClick={() => setIsDeletePopUpActive(true)}
-                  className="w-[270px]"
+                  className=" w-full lg:w-[270px]"
                 >
                   <CommonButton
                     text={"Delete Task"}
@@ -285,7 +299,7 @@ const SingleTask = () => {
                   ></CommonButton>
                 </div>
                 {/* submit task */}
-                <div className="w-[270px]">
+                <div className=" w-full lg:w-[270px]">
                   <CommonButton text={"Submit"}></CommonButton>
                 </div>
               </div>
