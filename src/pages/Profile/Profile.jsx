@@ -20,8 +20,6 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 const Profile = () => {
   let commonBorderStyle =
     "mt-4 border border-solid border-[#E1E1E1] rounded-md";
-  const maxProgress = 100;
-  const currentProgress = 75;
 
   const progressStyles = {
     pathColor: `#01a266`,
@@ -232,7 +230,7 @@ const Profile = () => {
             <div className="flex flex-col items-center">
               <div className=" w-[140px] h-[140px] lg:w-[195px] lg:h-[195px] flex items-center justify-center">
                 <CircularProgressbarWithChildren
-                  value={currentProgress}
+                  value={100 - user?.nextLabelPoint}
                   maxValue={100}
                   className="mx-auto"
                   strokeWidth={10}
@@ -241,7 +239,7 @@ const Profile = () => {
                   <div className="flex flex-col justify-center items-center">
                     <p className=" text-2xl leading-8 lg:text-[37px] font-semibold text-headingColor lg:leading-[50px]">
                       {" "}
-                      {currentProgress}{" "}
+                      {user?.currentPoint}{" "}
                     </p>
                     <p className="text-[10px] text-headingColor font-medium">
                       Earn Point
@@ -253,11 +251,10 @@ const Profile = () => {
               {/* level text */}
               <div className="text-center">
                 <h3 className=" text-2xl leading-5 lg:text-[34px] font-semibold  pb-2 pt-3 lg:leading-10 text-[#FFAB00] lg:pt-[10px]">
-                  Level 2
+                  {user?.currentLabel}
                 </h3>
                 <p className="text-[#5A5C5F] text-sm font-medium pt-1">
-                  You Need {maxProgress - currentProgress} Point to go to Next
-                  Level
+                  You Need {user?.nextLabelPoint} Point to go to Next Level
                 </p>
               </div>
             </div>

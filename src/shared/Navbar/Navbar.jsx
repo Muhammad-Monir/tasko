@@ -16,6 +16,8 @@ const Navbar = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
+  console.log(isSideBarActive);
+
   const { user, logOut } = useAuthContext();
 
   const sidebar = useRef(null);
@@ -51,8 +53,8 @@ const Navbar = () => {
   useEffect(() => {
     document.addEventListener("click", (event) => {
       if (
-        !sidebar.current.contains(event.target) &&
-        !sidebarTriggerBtn.current.contains(event.target)
+        !sidebar?.current.contains(event.target) &&
+        !sidebarTriggerBtn?.current.contains(event.target)
       ) {
         setIsSideBarActive(false);
       }
@@ -267,7 +269,7 @@ const Navbar = () => {
                 alt=""
               />
               <p className="text-[16px] text-[#fff] font-normal capitalize ">
-                Level 2
+                {user?.currentLabel}
               </p>
             </div>
             {/* profile  */}
@@ -403,14 +405,17 @@ const Navbar = () => {
       {/* sidebar */}
       <div
         ref={sidebar}
-        className={`fixed top-0 left-0  h-screen bg-[#0b151c] w-3/4 py-7 px-4 z-[60] duration-300 ease-in-out ${
+        className={`fixed top-0  h-screen bg-[#0b151c] w-3/4 py-7 px-4 z-[60] duration-300 ease-in-out lg:hidden ${
           isSideBarActive ? "left-0" : "-left-full"
         } `}
       >
         <div className="relative pt-5">
           {/* close button */}
           <div
-            onClick={() => setIsSideBarActive(false)}
+            onClick={() => {
+              console.log("clicked");
+              setIsSideBarActive(false);
+            }}
             className="absolute top-0 right-0 text-2xl text-[#fff]"
           >
             <IoClose />

@@ -3,10 +3,12 @@ import { useEffect, useState, useRef } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
-export default function StatusSelect({ setSelectedValue }) {
+export default function StatusSelect({ defaultSelected, setSelectedValue }) {
   const axiosSecure = useAxiosSecure();
 
-  const { data: taskStatusList } = useQuery({
+  const [taskStatusList, setTaskStatusList] = useState();
+
+  const { data: taskFetchList } = useQuery({
     queryKey: ["taskStatusList"],
     queryFn: async () => {
       const res = await axiosSecure.get("/taskstatuslist");
@@ -14,7 +16,13 @@ export default function StatusSelect({ setSelectedValue }) {
     },
   });
 
-  const [selectedStatus, setSelectedStatus] = useState("");
+  useEffect(() => {
+    setTaskStatusList(taskFetchList);
+  }, [taskFetchList]);
+
+  // console.log(taskStatusList);
+  // console.log(defaultSelected);
+  const [selectedStatus, setSelectedStatus] = useState(defaultSelected || "");
   const [isShow, setIsShow] = useState(false);
   const triggerRef = useRef(null);
 
@@ -48,7 +56,11 @@ export default function StatusSelect({ setSelectedValue }) {
         className={`select--toggler flex w-full items-center justify-between py-2.5 px-3  lg:py-[12px] lg:px-[16px] border-[1px] border-[#e1e1e1] rounded-[8px] text-paraLight font-medium text-sm lg:text-base`}
         onClick={() => setIsShow(!isShow)}
       >
-        {selectedStatus === "" ? "Select Status" : selectedStatus.statusTitle}
+        {defaultSelected
+          ? defaultSelected
+          : selectedStatus === ""
+          ? "Select Status"
+          : selectedStatus.statusTitle}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
@@ -74,7 +86,18 @@ export default function StatusSelect({ setSelectedValue }) {
               className="form-group option"
               onClick={() => handleSelect(data)}
             >
-              <input type="radio" id={data.id} name="category--radio" />
+              <input
+                defaultChecked={
+                  defaultSelected &&
+                  defaultSelected.toLowerCase() ===
+                    data.statusTitle.toLowerCase()
+                    ? true
+                    : false
+                }
+                type="radio"
+                id={data.id}
+                name="category--radio"
+              />
               <label htmlFor={data.id}>{data.statusTitle}</label>
             </li>
           ))}
@@ -85,4 +108,6 @@ export default function StatusSelect({ setSelectedValue }) {
 
 StatusSelect.propTypes = {
   setSelectedValue: PropTypes.func,
+  defaultSelected: PropTypes.string,
+  singleTaskStatus: PropTypes.bool,
 };

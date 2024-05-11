@@ -28,6 +28,8 @@ const Spin = () => {
     setSelectedResult(result);
   };
 
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
   const spinWheelProps = {
     onFinished: handleSpinFinish,
     primaryColor: "black",
@@ -54,7 +56,10 @@ const Spin = () => {
             Select Task Category
           </p>
           <div className=" w-full lg:w-[305px]">
-            <CategorySelect />
+            <CategorySelect
+              selectedCategory={selectedCategory}
+              setCategoryValue={setSelectedCategory}
+            />
           </div>
         </div>
       </div>

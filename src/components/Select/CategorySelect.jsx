@@ -1,14 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import PropTypes from "prop-types";
 
-export default function CategorySelect() {
+export default function CategorySelect({ selectedCategory, setCategoryValue }) {
   const axiosSecure = useAxiosSecure();
 
   const { data, isLoading } = useQuery({
     queryKey: ["all-category-list"],
     queryFn: async () => {
       const res = await axiosSecure.get("/category");
+
+      console.log(res.data);
 
       return res.data;
     },
@@ -20,6 +23,9 @@ export default function CategorySelect() {
   const triggerRef = useRef(null);
 
   const handleSelect = (data) => {
+    // passing the selected data to parent component
+    setCategoryValue(data);
+
     setSelectedStatus(data);
     setIsShow(false);
   };
@@ -87,3 +93,8 @@ export default function CategorySelect() {
     </div>
   );
 }
+
+CategorySelect.propTypes = {
+  setCategoryValue: PropTypes.func,
+  selectedCategory: PropTypes.string,
+};
