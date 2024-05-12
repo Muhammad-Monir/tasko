@@ -24,6 +24,8 @@ export default function FriendsRequests() {
     },
   });
 
+  console.log(data)
+
   const friendRequestList = [
     {
       id: 1,
@@ -119,7 +121,7 @@ export default function FriendsRequests() {
         <Loader />
       ) : data && data.length > 0 ? (
         <div className=" mt-4 lg:mt-6 max-h-[calc(100vh-285px)] flex flex-col overflow-auto">
-          {allFriendRequest.map((request) => (
+          {data.map((request) => (
             <RequestCard key={request.id} singleRequest={request} />
           ))}
         </div>

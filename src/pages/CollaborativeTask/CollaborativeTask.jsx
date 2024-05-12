@@ -113,7 +113,7 @@ export default function CollaborativeTask() {
           <div className="w-[180px]">
             <Link to={"/friends-requests"}>
               <CommonButton
-                text="Friends  Requests"
+                text="Friend Requests"
                 bGcolor="rgba(199, 22, 243, 0.15)"
                 color="#C716F3"
               />
