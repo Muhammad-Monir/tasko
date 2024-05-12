@@ -143,7 +143,7 @@ const Profile = () => {
                 {user.img ? (
                   <img
                     className="w-full h-full object-cover rounded-full border-4 border-primaryColor shadow-lg"
-                    src={`data:image/jpeg;base64,${user.img.underlyingStream.bytes}`}
+                    src={`data:image/jpeg;base64,${user.img}`}
                   />
                 ) : (
                   <img

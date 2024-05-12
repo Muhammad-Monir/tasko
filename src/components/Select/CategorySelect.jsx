@@ -3,7 +3,11 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 
-export default function CategorySelect({ selectedCategory, setCategoryValue }) {
+export default function CategorySelect({
+  selectedCategory,
+  setCategoryValue,
+  disableFunc,
+}) {
   const axiosSecure = useAxiosSecure();
 
   const { data, isLoading } = useQuery({
@@ -11,13 +15,11 @@ export default function CategorySelect({ selectedCategory, setCategoryValue }) {
     queryFn: async () => {
       const res = await axiosSecure.get("/category");
 
-      console.log(res.data);
-
       return res.data;
     },
   });
 
-  const [selectedStatus, setSelectedStatus] = useState("");
+
 
   const [isShow, setIsShow] = useState(false);
   const triggerRef = useRef(null);
@@ -26,7 +28,11 @@ export default function CategorySelect({ selectedCategory, setCategoryValue }) {
     // passing the selected data to parent component
     setCategoryValue(data);
 
-    setSelectedStatus(data);
+    // disable the other funcion
+    if (disableFunc) {
+      disableFunc(null);
+    }
+
     setIsShow(false);
   };
 
@@ -52,9 +58,7 @@ export default function CategorySelect({ selectedCategory, setCategoryValue }) {
         className={`flex w-full items-center justify-between py-2.5 px-3 lg:py-[12px] lg:px-[16px] border-[1px] border-[#e1e1e1] rounded-[8px] text-paraLight font-medium text-sm lg:text-base `}
         onClick={() => setIsShow(!isShow)}
       >
-        {selectedStatus === ""
-          ? "Select Task Category"
-          : selectedStatus.catName}
+        {!selectedCategory ? "Select Task Category" : selectedCategory.catName}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
@@ -96,5 +100,6 @@ export default function CategorySelect({ selectedCategory, setCategoryValue }) {
 
 CategorySelect.propTypes = {
   setCategoryValue: PropTypes.func,
-  selectedCategory: PropTypes.string,
+  selectedCategory: PropTypes.object,
+  disableFunc: PropTypes.func,
 };

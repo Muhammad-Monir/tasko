@@ -12,9 +12,12 @@ import NoContent from "../../components/NoContent/NoContent";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import moment from "moment";
 import toast from "react-hot-toast";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const SingleTask = () => {
   const { id } = useParams();
+
+  const { user, setCustomUserRefetch } = useAuthContext();
 
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
@@ -23,11 +26,17 @@ const SingleTask = () => {
   // eslint-disable-next-line
   const [selectedStatus, setSelectedStatus] = useState(null);
 
+  console.log(selectedStatus);
+
   const [deleteTask, setDeleteTask] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(null);
 
   // using query
-  const { data: taskInfo, isLoading } = useQuery({
+  const {
+    data: taskInfo,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: [id],
 
     queryFn: async () => {
@@ -37,6 +46,8 @@ const SingleTask = () => {
     },
   });
 
+  console.log(taskInfo);
+
   const pending = "#E343E6";
   const progress = "#DD9221";
   const done = "#21D789";
@@ -44,7 +55,7 @@ const SingleTask = () => {
   const currentColor =
     taskInfo?.status.toLowerCase() === "pending"
       ? pending
-      : taskInfo?.status.toLowerCase() === "progress"
+      : taskInfo?.status.toLowerCase() === "ongoing"
       ? progress
       : taskInfo?.status.toLowerCase() === "done"
       ? done
@@ -53,7 +64,7 @@ const SingleTask = () => {
   const statusText =
     taskInfo?.status.toLowerCase() === "pending"
       ? "Pending"
-      : taskInfo?.status.toLowerCase() === "progress"
+      : taskInfo?.status.toLowerCase() === "ongoing"
       ? "InProgress"
       : taskInfo?.status.toLowerCase() === "done"
       ? "Done"
@@ -77,6 +88,28 @@ const SingleTask = () => {
 
     // eslint-disable-next-line
   }, [confirmDelete, deleteTask]);
+
+  // handle submit task
+  const handleSubmitTask = () => {
+    if (selectedStatus) {
+      axiosSecure
+        .put(
+          `tasks/updateStatus?status=${selectedStatus.statusTitle}&taskID=${id}&userID=${user.userId}`
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            if (res.data.status === "Done") {
+              setSubmitPopUP(true);
+              setCustomUserRefetch(true);
+            } else {
+              toast.success("Task Status Updated");
+            }
+            refetch();
+          }
+        })
+        .catch((err) => toast.error(err.message));
+    }
+  };
 
   return (
     <div className="h-full">
@@ -275,33 +308,43 @@ const SingleTask = () => {
               </div>
 
               {/* status change area */}
-              <div className="pt-16 w-fit hidden lg:block">
-                <p className="text-base text-headingColor font-semibold leading-5 pb-2">
-                  Change Status
-                </p>
-                <div className="w-[410px]">
-                  <StatusSelect
-                    setSelectedValue={setSelectedStatus}
-                  ></StatusSelect>
+              {taskInfo.status === "Done" ? (
+                ""
+              ) : (
+                <div className="pt-16 w-fit hidden lg:block">
+                  <p className="text-base text-headingColor font-semibold leading-5 pb-2">
+                    Change Status
+                  </p>
+                  <div className="w-[410px]">
+                    <StatusSelect
+                      selectedStatus={selectedStatus}
+                      setSelectedValue={setSelectedStatus}
+                    ></StatusSelect>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 
           {/* task edit area */}
           <div className="flex items-center flex-col lg:flex-row ">
             {/* status change area */}
-            <div className=" pt-4 pb-4 lg:pb-0 lg:pt-16 w-full lg:w-fit lg:hidden ">
-              <p className="text-base text-headingColor font-semibold leading-5 pb-2">
-                Change Status
-              </p>
-              <div className="w-full lg:w-[410px]">
-                <StatusSelect
-                  defaultSelected={taskInfo.status}
-                  setSelectedValue={setSelectedStatus}
-                ></StatusSelect>
+            {taskInfo.status === "Done" ? (
+              ""
+            ) : (
+              <div className=" pt-4 pb-4 lg:pb-0 lg:pt-16 w-full lg:w-fit lg:hidden ">
+                <p className="text-base text-headingColor font-semibold leading-5 pb-2">
+                  Change Status
+                </p>
+
+                <div className="w-full lg:w-[410px]">
+                  <StatusSelect
+                    selectedStatus={selectedStatus}
+                    setSelectedValue={setSelectedStatus}
+                  ></StatusSelect>
+                </div>
               </div>
-            </div>
+            )}
             {/* button area */}
             <div className="flex items-center gap-3  pt-2 lg:pt-0 lg:gap-5 ml-auto flex-col lg:flex-row w-full lg:w-fit">
               {/* delete task */}
@@ -319,7 +362,10 @@ const SingleTask = () => {
                 ></CommonButton>
               </div>
               {/* submit task */}
-              <div className=" w-full lg:w-[270px]">
+              <div
+                onClick={() => handleSubmitTask()}
+                className=" w-full lg:w-[270px]"
+              >
                 <CommonButton text={"Submit"}></CommonButton>
               </div>
             </div>

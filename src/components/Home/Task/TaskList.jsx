@@ -23,19 +23,15 @@ function TaskList({ selectedCategory, selectedStatus }) {
 
     queryFn: async () => {
       if (selectedCategory) {
-        console.log("entered cat");
         const res = await axiosSecure.get(
           `/tasks/category?category=${selectedCategory.catName}&userID=${user.userId}`
         );
 
         return res.data;
       } else if (selectedStatus) {
-        console.log(selectedStatus.statusTitle);
         const res = await axiosSecure.get(
           `/tasks/status?status=${selectedStatus.statusTitle}&userID=${user.userId}`
         );
-
-        console.log(res.data)
 
         return res.data;
       } else {

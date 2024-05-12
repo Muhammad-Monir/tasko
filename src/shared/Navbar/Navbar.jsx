@@ -16,8 +16,6 @@ const Navbar = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  console.log(isSideBarActive);
-
   const { user, logOut } = useAuthContext();
 
   const sidebar = useRef(null);
@@ -283,7 +281,7 @@ const Navbar = () => {
                   className=" h-8 w-8 lg:h-[40px] lg:w-[40px] object-cover rounded-full"
                   src={
                     user?.img
-                      ? `data:image/jpeg;base64,${user.img.underlyingStream.bytes}`
+                      ? `data:image/jpeg;base64,${user.img}`
                       : defaultProfile
                   }
                   alt=""

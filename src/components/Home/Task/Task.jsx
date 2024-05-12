@@ -12,7 +12,7 @@ const Task = ({ taskInfo }) => {
   const currentColor =
     taskInfo.status.toLowerCase() === "pending"
       ? pending
-      : taskInfo.status.toLowerCase() === "progress"
+      : taskInfo.status.toLowerCase() === "ongoing"
       ? progress
       : taskInfo.status.toLowerCase() === "done"
       ? done
@@ -158,7 +158,7 @@ const Task = ({ taskInfo }) => {
                 {" "}
                 {taskInfo.status.toLowerCase() === "pending"
                   ? "Pending"
-                  : taskInfo.status.toLowerCase() === "progress"
+                  : taskInfo.status.toLowerCase() === "ongoing"
                   ? "InProgress"
                   : taskInfo.status.toLowerCase() === "done"
                   ? "Done"
