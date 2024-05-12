@@ -29,11 +29,17 @@ function TaskList({ selectedCategory, selectedStatus }) {
 
         return res.data;
       } else if (selectedStatus) {
-        const res = await axiosSecure.get(
-          `/tasks/status?status=${selectedStatus.statusTitle}&userID=${user.userId}`
-        );
+        if (selectedStatus.statusTitle === "All Task") {
+          const res = await axiosSecure.get(`/tasks?userID=${user.userId}`);
 
-        return res.data;
+          return res.data;
+        } else {
+          const res = await axiosSecure.get(
+            `/tasks/status?status=${selectedStatus.statusTitle}&userID=${user.userId}`
+          );
+
+          return res.data;
+        }
       } else {
         const res = await axiosSecure.get(`/tasks?userID=${user.userId}`);
 
