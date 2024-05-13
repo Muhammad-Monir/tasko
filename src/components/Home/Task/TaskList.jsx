@@ -14,8 +14,6 @@ function TaskList({ selectedCategory, selectedStatus }) {
 
   const axiosSecure = useAxiosSecure();
 
-  // console.log(selectedCategory);
-  // console.log(selectedStatus);
 
   // getting all the tasks
   const { data, isLoading } = useQuery({
@@ -31,6 +29,12 @@ function TaskList({ selectedCategory, selectedStatus }) {
       } else if (selectedStatus) {
         if (selectedStatus.statusTitle === "All Task") {
           const res = await axiosSecure.get(`/tasks?userID=${user.userId}`);
+
+          return res.data;
+        } else if (selectedStatus.statusTitle === "Collaborative Task") {
+          const res = await axiosSecure.get(
+            `/tasks/collaborated?userID=${user.userId}`
+          );
 
           return res.data;
         } else {

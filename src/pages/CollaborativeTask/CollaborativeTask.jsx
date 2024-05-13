@@ -123,8 +123,6 @@ export default function CollaborativeTask() {
     },
   });
 
-  console.log(friendList);
-
   return (
     <section>
       <div className="flex items-center  justify-between">
