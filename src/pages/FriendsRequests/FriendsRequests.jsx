@@ -13,7 +13,7 @@ export default function FriendsRequests() {
 
   const { user } = useAuthContext();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading , refetch } = useQuery({
     queryKey: ["FriendRequests"],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -122,7 +122,7 @@ export default function FriendsRequests() {
       ) : data && data.length > 0 ? (
         <div className=" mt-4 lg:mt-6 max-h-[calc(100vh-285px)] flex flex-col overflow-auto">
           {data.map((request) => (
-            <RequestCard key={request.id} singleRequest={request} />
+            <RequestCard key={request.id} singleRequest={request} refetch={refetch} />
           ))}
         </div>
       ) : (

@@ -73,6 +73,16 @@ const Spin = () => {
 
   const [selectedCategory, setSelectedCategory] = useState(null);
 
+
+  useEffect(() => {
+    if(selectedCategory){
+      // filtering data on category wise
+      
+    }
+  },[selectedCategory])
+
+  console.log(selectedCategory)
+
   const spinWheelProps = {
     onFinished: handleSpinFinish,
     primaryColor: "black",

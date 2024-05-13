@@ -2,6 +2,9 @@ import { useState } from "react";
 import BackButton from "../../components/BackButton.jsx/BackButton";
 import NoContent from "../../components/NoContent/NoContent";
 import SectionHeading from "../../components/SectionHeading/SectionHeading";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const SingleNotification = ({ data }) => {
   return (
@@ -50,8 +53,24 @@ const Notifications = () => {
       value: "content",
     },
   ];
+  const { user } = useAuthContext();
+  const axiosSecure = useAxiosSecure();
+
+  console.log(user.userId)
 
   const [notfications, setNotifications] = useState(list);
+
+  const { data } = useQuery({
+    queryKey: ["notifications"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/notification?userId=${user.userId}`);
+
+      return res.data;
+    },
+  });
+
+
+  console.log(data)
 
   return (
     <section>

@@ -8,9 +8,13 @@ import { useQuery } from "@tanstack/react-query";
 import Task from "../../components/Home/Task/Task";
 import Loader from "../../components/Loader/Loader";
 import BackButton from "../../components/BackButton.jsx/BackButton";
+import useAuthContext from "../../hooks/useAuthContext";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import defaultProfile from "../../assets/images/default-profile.png";
 
 export default function CollaborativeTask() {
   const navigate = useNavigate();
+  const { user } = useAuthContext();
 
   const Collaboratives = [
     {
@@ -79,7 +83,11 @@ export default function CollaborativeTask() {
   // list of collaborating tasks with each of the friends
   const [collaborativeTasks, setCollaborativeTasks] = useState([]);
 
+  // setting the freinds
+  // const [friendList,SetFriendList]=useState(null)
+
   const axiosCustom = useAxiosCustom();
+  const axiosSecure = useAxiosSecure();
 
   const { data: collabTasks, isLoading } = useQuery({
     queryKey: ["collaborativeTask"],
@@ -104,6 +112,20 @@ export default function CollaborativeTask() {
     setCollaboratives(collaboratives.filter((friend) => friend.id !== id));
   };
 
+  // getting friend list
+  const { data: friendList, isLoading: isFriendLoading } = useQuery({
+    queryKey: ["allFriendList"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `/friend/getlist?userId=${user.userId}`
+      );
+
+      return res.data;
+    },
+  });
+
+  console.log(friendList);
+
   return (
     <section>
       <div className="flex items-center  justify-between">
@@ -125,76 +147,86 @@ export default function CollaborativeTask() {
       {/* collaborative friends */}
       <div className="mt-[37px] flex items-start gap-[30px]">
         {/* friend list  */}
-        <div className="min-w-[390px] py-[22px] rounded-[5px] border-[1px] border-[#e1e1e1] box-shadow-[0px_1px_3px_0px_rgba(0,0,0,0.12)]">
-          <p className="text-base font-semibold text-headingColor px-[24px] mb-[8px]">
-            Friends list
-          </p>
-          <ul className="h-[445px] overflow-auto">
-            {collaboratives.map((collaborative) => (
-              <li
-                key={collaborative.id}
-                className={`relative flex items-center cursor-pointer ${
-                  selectedFriend === collaborative.id
-                    ? "bg-primaryColor/20"
-                    : ""
-                } gap-[14px] py-[9px] px-[24px] mt-[8px] first:mt-0`}
-                onClick={() => handleFriendClick(collaborative.id)}
-              >
-                <div>
-                  <img
-                    className="w-12 h-12 rounded-full object-cover"
-                    src={collaborative.image}
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h3 className="text-base font-semibold mb-[6px]">
-                    {collaborative.name}
-                  </h3>
-                  <p className="text-sm text-[#5A5C5F]">
-                    {collaborative.taskAmount} Task With You{" "}
-                  </p>
-                </div>
-                <div
-                  className="absolute top-1/2 right-[24px] -translate-y-[50%] cursor-pointer"
-                  onClick={() => handleFriendDelete(collaborative.id)}
-                >
-                  {selectedFriend === collaborative.id ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="15"
-                      height="14"
-                      viewBox="0 0 15 14"
-                      fill="none"
+        {!isFriendLoading && (
+          <div className="min-w-[390px] py-[22px] rounded-[5px] border-[1px] border-[#e1e1e1] box-shadow-[0px_1px_3px_0px_rgba(0,0,0,0.12)]">
+            <p className="text-base font-semibold text-headingColor px-[24px] mb-[8px]">
+              Friends list
+            </p>
+            <ul className="h-[445px] overflow-auto">
+              {friendList.length > 0 ? (
+                friendList.map((singleFriend) => (
+                  <li
+                    key={singleFriend.id}
+                    className={`relative flex items-center cursor-pointer ${
+                      selectedFriend === singleFriend.id
+                        ? "bg-primaryColor/20"
+                        : ""
+                    } gap-[14px] py-[9px] px-[24px] mt-[8px] first:mt-0`}
+                    onClick={() => handleFriendClick(singleFriend.id)}
+                  >
+                    <div>
+                      <img
+                        className="w-12 h-12 rounded-full object-cover"
+                        src={
+                          singleFriend.img
+                            ? `data:image/jpeg;base64,${singleFriend.img}`
+                            : defaultProfile
+                        }
+                        alt=""
+                      />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-semibold mb-[6px]">
+                        {singleFriend.friendName}
+                      </h3>
+                    </div>
+                    <div
+                      className="absolute top-1/2 right-[24px] -translate-y-[50%] cursor-pointer"
+                      onClick={() => handleFriendDelete(singleFriend.id)}
                     >
-                      <path
-                        d="M13.66 12.8301L1 1"
-                        stroke="#36B37E"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M1 12.8301L13.66 1"
-                        stroke="#36B37E"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  ) : (
-                    ""
-                  )}
+                      {selectedFriend === singleFriend.id ? (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="14"
+                          viewBox="0 0 15 14"
+                          fill="none"
+                        >
+                          <path
+                            d="M13.66 12.8301L1 1"
+                            stroke="#36B37E"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M1 12.8301L13.66 1"
+                            stroke="#36B37E"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </li>
+                ))
+              ) : (
+                <div className="text-center flex items-center justify-center h-full text-2xl font-semibold text-paraLight">
+                  {" "}
+                  <p>No Friend Avaialable</p>{" "}
                 </div>
-              </li>
-            ))}
-          </ul>
-          <div className="px-[24px] mt-12">
-            <Link to={"/add-friends"}>
-              <CommonButton text="Add New Friend" icon={AddFriendIcon} />
-            </Link>
+              )}
+            </ul>
+            <div className="px-[24px] mt-12">
+              <Link to={"/add-friends"}>
+                <CommonButton text="Add New Friend" icon={AddFriendIcon} />
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
         {isLoading ? (
           <div className="h-[calc(100vh-287px)] w-full flex justify-center">
             <Loader />
