@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SectionHeading from "../../components/SectionHeading/SectionHeading";
 import CommonButton from "../../components/CommonButton/CommonButton";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AddFriendIcon from "../../assets/images/user-cirlce-add.svg";
 import useAxiosCustom from "../../hooks/useAxiosCustom";
 import { useQuery } from "@tanstack/react-query";
@@ -13,7 +13,6 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import defaultProfile from "../../assets/images/default-profile.png";
 
 export default function CollaborativeTask() {
-  const navigate = useNavigate();
   const { user } = useAuthContext();
 
   const Collaboratives = [
