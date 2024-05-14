@@ -51,7 +51,9 @@ const Spin = () => {
   // setting the all task into segement format
   useEffect(() => {
     if (allTask) {
-      const taskSegments = allTask.map((item) => {
+      const filteredTasks = allTask.filter((item) => item.status !== "Done");
+
+      const taskSegments = filteredTasks.map((item) => {
         return {
           segmentText: item.title,
           segColor: generateRandomColor(),
