@@ -128,9 +128,6 @@ const SingleTask = () => {
     // eslint-disable-next-line
   }, [taskInfo, user]);
 
-  console.log(assignedLoading)
-  console.log(assignUser);
-
   return (
     <div className="h-full">
       {isLoading ? (
