@@ -113,9 +113,9 @@ const SingleTask = () => {
   };
 
   useEffect(() => {
-    if (taskInfo?.collaboators[0].friendId === user.userId) {
+    if (taskInfo?.collaboators[0]?.friendId === user.userId) {
       axiosSecure
-        .get(`/users?id=${taskInfo?.collaboators[0].userId}`)
+        .get(`/users?id=${taskInfo?.collaboators[0]?.userId}`)
         .then((res) => {
           setAssignUser(res.data);
           setAssignedLoading(false);
