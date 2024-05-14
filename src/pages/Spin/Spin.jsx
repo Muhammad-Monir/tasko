@@ -14,12 +14,15 @@ import NoContent from "../../components/NoContent/NoContent";
 const Spin = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuthContext();
+  const navigate = useNavigate();
 
   const [allTask, setAllTask] = useState(null);
   const [taskSegments, setTaskSegments] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const navigate = useNavigate();
+
+  const [showInstruction, setShowInstruction] = useState(true);
+  const [selectedResult, setSelectedResult] = useState(null);
 
   // generating random colors for spinner
   function generateRandomColor() {
@@ -31,11 +34,16 @@ const Spin = () => {
     queryKey: ["allSpinTask", selectedCategory],
     queryFn: async () => {
       if (selectedCategory) {
-        const res = await axiosSecure.get(
-          `/tasks/category?category=${selectedCategory.catName}&userID=${user.userId}`
-        );
+        if (selectedCategory.catName === "All Category") {
+          const res = await axiosSecure.get(`/tasks?userID=${user.userId}`);
 
-        return res.data;
+          return res.data;
+        } else {
+          const res = await axiosSecure.get(
+            `/tasks/category?category=${selectedCategory.catName}&userID=${user.userId}`
+          );
+          return res.data;
+        }
       } else {
         const res = await axiosSecure.get(`/tasks?userID=${user.userId}`);
 
@@ -64,9 +72,6 @@ const Spin = () => {
       setTaskSegments(taskSegments);
     }
   }, [allTask]);
-
-  const [showInstruction, setShowInstruction] = useState(true);
-  const [selectedResult, setSelectedResult] = useState(null);
 
   // function to handle finish
   const handleSpinFinish = (result) => {
