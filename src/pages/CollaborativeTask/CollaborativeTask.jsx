@@ -34,7 +34,12 @@ export default function CollaborativeTask() {
         const res = await axiosSecure.get(
           `/tasks/collaboration?collaboratorID=${selectedFriend.friendId}&userID=${user.userId}`
         );
-        return res.data;
+        const res2 = await axiosSecure.get(
+          `/tasks/collaboration?collaboratorID=${user.userId}&userID=${selectedFriend.friendId}`
+        );
+
+        // combining the both data on return
+        return [...res.data, ...res2.data];
       } else {
         return null;
       }

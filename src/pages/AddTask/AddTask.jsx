@@ -131,7 +131,6 @@ const AddTask = () => {
     axiosSecure
       .post("/tasks", taskInfo)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           reset();
           setTaskCatSelected(null);

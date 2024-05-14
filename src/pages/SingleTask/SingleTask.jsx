@@ -30,6 +30,10 @@ const SingleTask = () => {
   const [deleteTask, setDeleteTask] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(null);
 
+  // assigned with
+  const [assignedLoading, setAssignedLoading] = useState(true);
+  const [assignUser, setAssignUser] = useState(null);
+
   // using query
   const {
     data: taskInfo,
@@ -107,6 +111,25 @@ const SingleTask = () => {
         .catch((err) => toast.error(err.message));
     }
   };
+
+  useEffect(() => {
+    if (taskInfo?.collaboators[0].friendId === user.userId) {
+      axiosSecure
+        .get(`/users?id=${taskInfo?.collaboators[0].userId}`)
+        .then((res) => {
+          setAssignUser(res.data);
+          setAssignedLoading(false);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setAssignedLoading(false);
+    }
+
+    // eslint-disable-next-line
+  }, [taskInfo, user]);
+
+  console.log(assignedLoading)
+  console.log(assignUser);
 
   return (
     <div className="h-full">
@@ -262,27 +285,47 @@ const SingleTask = () => {
                 {taskInfo.collaboators.length > 0 ? (
                   <div className="border-x border-solid border-[#E1E1E1] px-10 ">
                     <p className="pb-4 text-[18px] font-semibold">
-                      Assigned Friends
+                      Collaborated With
                     </p>
 
                     {/* profile */}
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-full overflow-hidden">
-                        <img
-                          className="w-full h-full object-cover"
-                          src={
-                            taskInfo.collaboators[0].img
-                              ? `data:image/jpeg;base64,${taskInfo.collaboators[0].img}`
-                              : defaultProfile
-                          }
-                          alt=""
-                        />
+                    {!assignedLoading && assignUser ? (
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-full overflow-hidden">
+                          <img
+                            className="w-full h-full object-cover"
+                            src={
+                              assignUser.img
+                                ? `data:image/jpeg;base64,${assignUser.img}`
+                                : defaultProfile
+                            }
+                            alt=""
+                          />
+                        </div>
+                        <p className="text-xl leading-[33px] text-headingColor">
+                          {" "}
+                          {assignUser.userName}{" "}
+                        </p>
                       </div>
-                      <p className="text-xl leading-[33px] text-headingColor">
-                        {" "}
-                        {taskInfo.collaboators[0].userName}{" "}
-                      </p>
-                    </div>
+                    ) : (
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-full overflow-hidden">
+                          <img
+                            className="w-full h-full object-cover"
+                            src={
+                              taskInfo.collaboators[0].img
+                                ? `data:image/jpeg;base64,${taskInfo.collaboators[0].img}`
+                                : defaultProfile
+                            }
+                            alt=""
+                          />
+                        </div>
+                        <p className="text-xl leading-[33px] text-headingColor">
+                          {" "}
+                          {taskInfo.collaboators[0].userName}{" "}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   ""
