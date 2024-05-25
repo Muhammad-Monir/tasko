@@ -124,7 +124,7 @@ const SingleTask = () => {
     } else {
       setAssignedLoading(false);
     }
-
+ 
     // eslint-disable-next-line
   }, [taskInfo, user]);
 

@@ -34,8 +34,7 @@ const Login = () => {
       password: userData.password,
     };
 
-    // loggin in the user
-
+    // login in the user
     axiosAuth
       .post("/users/login", userInfo)
       .then(async (res) => {
